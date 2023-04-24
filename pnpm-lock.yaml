@@ -39,6 +39,9 @@ dependencies:
     version: 5.0.4
 
 devDependencies:
+  '@total-typescript/ts-reset':
+    specifier: ^0.4.2
+    version: 0.4.2
   prisma:
     specifier: 4.13.0
     version: 4.13.0
@@ -278,6 +281,10 @@ packages:
     dependencies:
       tslib: 2.5.0
     dev: false
+
+  /@total-typescript/ts-reset@0.4.2:
+    resolution: {integrity: sha512-vqd7ZUDSrXFVT1n8b2kc3LnklncDQFPvR58yUS1kEP23/nHPAO9l1lMjUfnPrXYYk4Hj54rrLKMW5ipwk7k09A==}
+    dev: true
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
