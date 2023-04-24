@@ -24,3 +24,11 @@ Then run prisma migrate via the Railway CLI
 ```bash
 railway run pnpm prisma migrate deploy
 ```
+
+## Railway
+
+The default build command `pnpm run build` fails because it does not have the `prisma generate` step. So we need to add that to the build command.
+
+```bash
+pnpm run prisma generate && pnpm run build 
+```
