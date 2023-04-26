@@ -1,23 +1,30 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
+import { GetStaticProps, type InferGetStaticPropsType } from "next";
+import { format } from "date-fns";
+
 import styles from "@/styles/Home.module.css";
 import LoginButton from "@/components/login-btn";
 import { prisma } from "@/db";
-import { GetStaticProps, type InferGetStaticPropsType } from "next";
 import { Event } from "@prisma/client";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const getStaticProps: GetStaticProps<{
-  events: Pick<Event, "id" | "name">[];
+  events: ({ date: string } & Pick<Event, "id" | "name" | "link">)[];
 }> = async () => {
   const events = await prisma.event.findMany({
-    select: { id: true, name: true },
+    select: { id: true, name: true, date: true, link: true },
   });
+  const serializeableEvents = events.map((event) => ({
+    ...event,
+    date: event.date.toISOString(),
+  }));
+
   return {
     props: {
-      events,
+      events: serializeableEvents,
     },
   };
 };
@@ -29,7 +36,14 @@ export default function Home({
     <>
       <LoginButton />
       {events.map((event) => (
-        <div key={event.id}>{event.name}</div>
+        <div key={event.id}>
+          <ul>
+            <li>
+              <a href={event.link}>{event.name}</a>
+            </li>
+            <li>{format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}</li>
+          </ul>
+        </div>
       ))}
       <Head>
         <title>Create Next App</title>
