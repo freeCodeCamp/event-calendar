@@ -42,7 +42,12 @@ export default function Home({
             <li>
               <a href={event.link}>{event.name}</a>
             </li>
-            <li>{format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}</li>
+            {/* TODO: replace with a spinner (or similar) to gracefully handle
+                the delay between receiving the HTML and the browser rendering 
+                the date */}
+            <li suppressHydrationWarning>
+              {format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}
+            </li>
           </ul>
         </div>
       ))}
