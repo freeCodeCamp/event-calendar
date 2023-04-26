@@ -26,6 +26,7 @@ export const getStaticProps: GetStaticProps<{
     props: {
       events: serializeableEvents,
     },
+    revalidate: 10,
   };
 };
 
