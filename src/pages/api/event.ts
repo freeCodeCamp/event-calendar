@@ -4,7 +4,7 @@ import { Session } from "next-auth";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { prisma } from "@/db";
-import { compiler } from "@/validation";
+import { compiler } from "@/validation/compiler";
 
 type ValidationFailure = {
   err: Error;

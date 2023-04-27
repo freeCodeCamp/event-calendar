@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
 
-import { type EventData, schema } from "@/validation";
+import { type EventData, schema } from "@/validation/schema";
 
 export default function AddEvent() {
   const router = useRouter();

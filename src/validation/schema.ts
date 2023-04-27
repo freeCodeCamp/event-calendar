@@ -1,5 +1,4 @@
 import { type Static, Type } from "@sinclair/typebox";
-import { TypeCompiler } from "@sinclair/typebox/compiler";
 import { TypeSystem } from "@sinclair/typebox/system";
 import isURL from "validator/es/lib/isURL";
 import isISO8601 from "validator/es/lib/isISO8601";
@@ -19,11 +18,9 @@ if (!globalForValidation.__formatsAdded) {
 }
 
 export const schema = Type.Object({
-  name: Type.String({ minLength: 3, maxLength: 100 }),
+  name: Type.String({ minLength: 1, maxLength: 100 }),
   link: Type.String({ format: "uri" }),
   date: Type.String({ format: "date-time" }),
 });
-
-export const compiler = TypeCompiler.Compile(schema);
 
 export type EventData = Static<typeof schema>;
