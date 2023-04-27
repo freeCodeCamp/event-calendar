@@ -1,23 +1,8 @@
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-
 import { typeboxResolver } from "@hookform/resolvers/typebox";
-import { type Static, Type } from "@sinclair/typebox";
-import { TypeSystem } from "@sinclair/typebox/system";
-import isURL from "validator/es/lib/isURL";
-import isISO8601 from "validator/es/lib/isISO8601";
 
-TypeSystem.Format("date-time", isISO8601);
-
-TypeSystem.Format("uri", (val) => isURL(val, { protocols: ["http", "https"] }));
-
-const schema = Type.Object({
-  name: Type.String({ minLength: 3, maxLength: 100 }),
-  link: Type.String({ format: "uri" }),
-  date: Type.String({ format: "date-time" }),
-});
-
-type EventData = Static<typeof schema>;
+import { type EventData, schema } from "@/validation";
 
 export default function AddEvent() {
   const router = useRouter();
@@ -27,7 +12,7 @@ export default function AddEvent() {
 
   console.log("errors", formState.errors);
 
-  const postEvent = async (event: EventData) => {
+  const postEvent = async (event: EventData ) => {
     const res = await fetch("/api/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

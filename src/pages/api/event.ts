@@ -1,9 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
+import { Session } from "next-auth";
 
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { prisma } from "@/db";
-import { Session } from "next-auth";
+import { compiler } from "@/validation";
 
 type ValidationFailure = {
   err: Error;
@@ -29,36 +30,6 @@ const expectedEntries = [
   ["name", ["string"]],
 ] as const;
 
-const parseBody = (body: any): Validated<Event> => {
-  if (!body) return { err: new Error("No body"), data: null };
-
-  const keys = Object.keys(body);
-  try {
-    expectedEntries.forEach(([key, type]) => {
-      if (!keys.includes(key)) throw new Error(`Missing key: ${key}`);
-      if (!type.includes(typeof body[key]))
-        throw new Error(
-          `Invalid type: ${key}. Expected ${type}. Actual ${typeof body[key]}`
-        );
-    });
-  } catch (error) {
-    if (error instanceof Error) {
-      return { err: error, data: null };
-    } else {
-      return { err: new Error("Could not validate body"), data: null };
-    }
-  }
-
-  return {
-    err: null,
-    data: {
-      date: body.date,
-      link: body.link,
-      name: body.name,
-    },
-  };
-};
-
 const getEmailFromSession = (
   session: Session | null
 ): Validated<{ email: string }> => {
@@ -75,10 +46,11 @@ const createEvent = async (req: NextApiRequest, res: NextApiResponse) => {
   const { err: sessionErr, data: user } = getEmailFromSession(maybeSession);
   if (sessionErr) return res.status(403).json({ message: sessionErr.message });
 
-  const { err, data } = parseBody(req.body);
-  if (err) return res.status(400).json({ message: err.message });
+  if (!compiler.Check(req.body)) {
+    return res.status(400).json({ message: [...compiler.Errors(req.body)] });
+  }
 
-  const eventDate = new Date(data.date);
+  const eventDate = new Date(req.body.date);
   if (eventDate.toString() === "Invalid Date")
     return res.status(400).json({ message: "Invalid date" });
 
@@ -86,8 +58,8 @@ const createEvent = async (req: NextApiRequest, res: NextApiResponse) => {
     await prisma.event.create({
       data: {
         date: eventDate,
-        link: data.link,
-        name: data.name,
+        link: req.body.link,
+        name: req.body.name,
         creator: {
           connect: {
             email: user.email,
@@ -104,7 +76,7 @@ const createEvent = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
-    createEvent(req, res);
+    await createEvent(req, res);
   } else {
     res.status(405).json({ message: "Method not allowed" });
   }
