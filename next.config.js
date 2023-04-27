@@ -15,6 +15,7 @@ const securityHeaders = [
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ["validator"],
   reactStrictMode: true,
   async headers() {
     return [
