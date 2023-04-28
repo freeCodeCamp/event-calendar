@@ -1,21 +1,38 @@
 import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { GetStaticProps, type InferGetStaticPropsType } from "next";
+import { GetStaticProps } from "next";
 import { format } from "date-fns";
+import distance from "@turf/distance";
+import { point, type Point, type Feature } from "@turf/helpers";
 
 import styles from "@/styles/Home.module.css";
 import LoginButton from "@/components/login-btn";
 import { prisma } from "@/db";
 import { Event } from "@prisma/client";
+import { useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const getStaticProps: GetStaticProps<{
-  events: ({ date: string } & Pick<Event, "id" | "name" | "link">)[];
-}> = async () => {
+type EventInfo = { date: string } & Omit<
+  Event,
+  "createdAt" | "updatedAt" | "creatorId" | "date"
+>;
+
+type EventProps = {
+  events: EventInfo[];
+};
+
+export const getStaticProps: GetStaticProps<EventProps> = async () => {
   const events = await prisma.event.findMany({
-    select: { id: true, name: true, date: true, link: true },
+    select: {
+      id: true,
+      name: true,
+      date: true,
+      link: true,
+      latitude: true,
+      longitude: true,
+    },
   });
   const serializeableEvents = events.map((event) => ({
     ...event,
@@ -30,26 +47,56 @@ export const getStaticProps: GetStaticProps<{
   };
 };
 
-export default function Home({
-  events,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+function eventInRadius(
+  userPosition: Feature<Point>,
+  event: EventInfo,
+  radius: number
+) {
+  const eventPosition = point([event.longitude, event.latitude]);
+  const distanceToEvent = distance(userPosition, eventPosition, {
+    units: "kilometers",
+  });
+  return distanceToEvent <= radius;
+}
+
+function EventCard({ event }: { event: EventInfo }) {
+  return (
+    <ul>
+      <li>
+        <a href={event.link}>{event.name}</a>
+      </li>
+      {/* TODO: replace with a spinner (or similar) to gracefully handle
+        the delay between receiving the HTML and the browser rendering 
+        the date */}
+      <li suppressHydrationWarning>
+        {format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}
+      </li>
+    </ul>
+  );
+}
+
+export default function Home({ events }: EventProps) {
+  const [userPosition, setUserPosition] = useState<Feature<Point> | null>(null);
+  useEffect(() => {
+    if (!userPosition) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        setUserPosition(
+          point([position.coords.longitude, position.coords.latitude])
+        );
+      });
+    }
+  }, [userPosition]);
+
+  const filteredEvents = events.filter((event) =>
+    userPosition ? eventInRadius(userPosition, event, 100) : true
+  );
+
   return (
     <>
       <LoginButton />
-      {events.map((event) => (
-        <div key={event.id}>
-          <ul>
-            <li>
-              <a href={event.link}>{event.name}</a>
-            </li>
-            {/* TODO: replace with a spinner (or similar) to gracefully handle
-                the delay between receiving the HTML and the browser rendering 
-                the date */}
-            <li suppressHydrationWarning>
-              {format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}
-            </li>
-          </ul>
-        </div>
+      <h2> Nearby Events </h2>
+      {filteredEvents.map((event) => (
+        <EventCard key={event.id} event={event} />
       ))}
       <Head>
         <title>Create Next App</title>
