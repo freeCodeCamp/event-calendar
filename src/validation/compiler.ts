@@ -1,5 +1,5 @@
 import { TypeCompiler } from "@sinclair/typebox/compiler";
 
-import { schema } from "./schema";
+import { eventSchema } from "./schema";
 
-export const compiler = TypeCompiler.Compile(schema);
+export const compiler = TypeCompiler.Compile(eventSchema);

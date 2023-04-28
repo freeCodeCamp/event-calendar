@@ -17,12 +17,19 @@ if (!globalForValidation.__formatsAdded) {
     globalForValidation.__formatsAdded = true;
 }
 
-export const schema = Type.Object({
-  name: Type.String({ minLength: 1, maxLength: 100 }),
-  link: Type.String({ format: "uri" }),
-  date: Type.String({ format: "date-time" }),
+export const locationSchema = Type.Object({
   latitude: Type.Number({ minimum: -90, maximum: 90 }),
   longitude: Type.Number({ minimum: -180, maximum: 180 }),
 });
 
-export type EventData = Static<typeof schema>;
+export const eventSchema = Type.Composite([
+  Type.Object({
+    name: Type.String({ minLength: 1, maxLength: 100 }),
+    link: Type.String({ format: "uri" }),
+    date: Type.String({ format: "date-time" }),
+  }),
+  locationSchema,
+]);
+
+export type EventData = Static<typeof eventSchema>;
+export type Location = Static<typeof locationSchema>;

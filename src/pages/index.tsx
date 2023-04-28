@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GetStaticProps } from "next";
 import { format } from "date-fns";
+import { useEffect, useState } from "react";
 import distance from "@turf/distance";
 import { point, type Point, type Feature } from "@turf/helpers";
 
@@ -9,7 +10,13 @@ import styles from "@/styles/Home.module.css";
 import LoginButton from "@/components/login-btn";
 import { prisma } from "@/db";
 import { Event } from "@prisma/client";
-import { useEffect, useState } from "react";
+import {
+  type Location,
+  eventSchema,
+  locationSchema,
+} from "@/validation/schema";
+import { typeboxResolver } from "@hookform/resolvers/typebox";
+import { useForm } from "react-hook-form";
 
 // Given that people can (currently) be assumed to be meeting on the surface of
 // the Earth, we can use its circumference to calculate a safe upper bound for
@@ -92,17 +99,63 @@ function EventCard({ event }: { event: EventWithDistance }) {
   );
 }
 
+function LocationForm({ onSubmit }: { onSubmit: (data: Location) => void }) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Location>({
+    resolver: typeboxResolver(locationSchema),
+  });
+
+  // TODO: DRY this and add-event out, they're almost identical.
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <div>
+        Enter a location to see nearby events:
+        <label htmlFor="latitude">Latitude: </label>
+        <input
+          type="text"
+          required
+          {...register("latitude", { required: true, valueAsNumber: true })}
+        />
+        {errors.latitude && (
+          <span>Latitude must be between -90 and 90 inclusive</span>
+        )}
+      </div>
+      <div>
+        <label htmlFor="longitude">Longitude: </label>
+        <input
+          type="text"
+          required
+          {...register("longitude", { required: true, valueAsNumber: true })}
+        />
+        {errors.longitude && (
+          <span>Longitude must be between -180 and 180 inclusive</span>
+        )}
+      </div>
+      <input type="submit" />
+    </form>
+  );
+}
+
 export default function Home({ events }: EventProps) {
   const [userPosition, setUserPosition] = useState<Feature<Point> | null>(null);
+  const [locationEnabled, setLocationEnabled] = useState(true);
   const [maxRadius, setMaxRadius] = useState("100");
 
   useEffect(() => {
     if (!userPosition) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setUserPosition(
-          point([position.coords.longitude, position.coords.latitude])
-        );
-      });
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setUserPosition(
+            point([position.coords.longitude, position.coords.latitude])
+          );
+        },
+        () => {
+          setLocationEnabled(false);
+        }
+      );
     }
   }, [userPosition]);
 
@@ -126,6 +179,13 @@ export default function Home({ events }: EventProps) {
       <main className={styles.main}>
         <LoginButton />
         <h1>Events {userPosition && "within"}</h1>
+        {!locationEnabled && (
+          <LocationForm
+            onSubmit={({ latitude, longitude }) =>
+              setUserPosition(point([longitude, latitude]))
+            }
+          />
+        )}
         {userPosition && (
           <select
             value={maxRadius}

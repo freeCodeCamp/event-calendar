@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
 
-import { type EventData, schema } from "@/validation/schema";
+import { type EventData, eventSchema } from "@/validation/schema";
 
 export default function AddEvent() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function AddEvent() {
     handleSubmit,
     formState: { errors },
   } = useForm<EventData>({
-    resolver: typeboxResolver(schema),
+    resolver: typeboxResolver(eventSchema),
   });
 
   const postEvent = async (event: EventData) => {
