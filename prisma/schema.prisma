@@ -58,8 +58,8 @@ model Event {
   name      String
   date      DateTime
   link      String
-  latitude  Float?
-  longitude Float?
+  latitude  Float
+  longitude Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   creator   User     @relation(fields: [creatorId], references: [id])
