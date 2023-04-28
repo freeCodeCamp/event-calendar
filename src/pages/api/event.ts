@@ -18,18 +18,6 @@ type ValidationSuccess<T> = {
 
 type Validated<T> = ValidationFailure | ValidationSuccess<T>;
 
-type Event = {
-  date: string;
-  link: string;
-  name: string;
-};
-
-const expectedEntries = [
-  ["date", ["string", "number"]],
-  ["link", ["string"]],
-  ["name", ["string"]],
-] as const;
-
 const getEmailFromSession = (
   session: Session | null
 ): Validated<{ email: string }> => {
