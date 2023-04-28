@@ -54,6 +54,28 @@ export default function AddEvent() {
         {errors.date && <span>Dates must be ISO8601 compliant</span>}
       </div>
       <div>
+        <label htmlFor="latitude">Latitude: </label>
+        <input
+          type="text"
+          required
+          {...register("latitude", { required: true, valueAsNumber: true })}
+        />
+        {errors.latitude && (
+          <span>Latitude must be between -90 and 90 inclusive</span>
+        )}
+      </div>
+      <div>
+        <label htmlFor="longitude">Longitude: </label>
+        <input
+          type="text"
+          required
+          {...register("longitude", { required: true, valueAsNumber: true })}
+        />
+        {errors.longitude && (
+          <span>Longitude must be between -180 and 180 inclusive</span>
+        )}
+      </div>
+      <div>
         <input type="submit" value="Create Event" />
       </div>
     </form>

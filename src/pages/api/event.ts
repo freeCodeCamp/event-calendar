@@ -48,6 +48,8 @@ const createEvent = async (req: NextApiRequest, res: NextApiResponse) => {
         date: eventDate,
         link: req.body.link,
         name: req.body.name,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
         creator: {
           connect: {
             email: user.email,

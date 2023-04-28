@@ -21,6 +21,8 @@ export const schema = Type.Object({
   name: Type.String({ minLength: 1, maxLength: 100 }),
   link: Type.String({ format: "uri" }),
   date: Type.String({ format: "date-time" }),
+  latitude: Type.Number({ minimum: -90, maximum: 90 }),
+  longitude: Type.Number({ minimum: -180, maximum: 180 }),
 });
 
 export type EventData = Static<typeof schema>;
