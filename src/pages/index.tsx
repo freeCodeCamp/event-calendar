@@ -49,16 +49,23 @@ export const getStaticProps: GetStaticProps<EventProps> = async () => {
   };
 };
 
+function getDistance(userPosition: Feature<Point> | null, event: EventInfo) {
+  const eventPosition = point([event.longitude, event.latitude]);
+  const distanceToEvent = userPosition
+    ? distance(userPosition, eventPosition, {
+        units: "kilometers",
+      })
+    : null;
+  return distanceToEvent;
+}
+
 function eventInRadius(
-  userPosition: Feature<Point>,
+  userPosition: Feature<Point> | null,
   event: EventInfo,
   radius: number
 ) {
-  const eventPosition = point([event.longitude, event.latitude]);
-  const distanceToEvent = distance(userPosition, eventPosition, {
-    units: "kilometers",
-  });
-  return distanceToEvent <= radius;
+  const distanceToEvent = getDistance(userPosition, event);
+  return distanceToEvent ? distanceToEvent <= radius : true;
 }
 
 function EventCard({ event }: { event: EventWithDistance }) {
@@ -92,19 +99,14 @@ export default function Home({ events }: EventProps) {
     }
   }, [userPosition]);
 
-  const nearbyEvents = userPosition
-    ? events.filter((event) => eventInRadius(userPosition, event, 100))
-    : events;
+  const eventsInRange = events.filter((event) =>
+    eventInRadius(userPosition, event, 100)
+  );
 
-  const eventsWithDistance = nearbyEvents.map((event) => {
-    const eventPosition = point([event.longitude, event.latitude]);
-    const distanceToEvent = userPosition
-      ? distance(userPosition, eventPosition, {
-          units: "kilometers",
-        })
-      : null;
-    return { ...event, distance: distanceToEvent };
-  });
+  const eventsWithDistance = eventsInRange.map((event) => ({
+    ...event,
+    distance: getDistance(userPosition, event),
+  }));
 
   return (
     <>
