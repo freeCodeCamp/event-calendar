@@ -59,7 +59,7 @@ function eventInRadius(
   return distanceToEvent <= radius;
 }
 
-function EventCard({ event }: { event: EventInfo }) {
+function EventCard({ event }: { event: EventInfo & { distance?: number } }) {
   return (
     <ul>
       <li>
@@ -71,6 +71,9 @@ function EventCard({ event }: { event: EventInfo }) {
       <li suppressHydrationWarning>
         {format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}
       </li>
+      {event.distance ? (
+        <li>Distance to event: {event.distance.toFixed(2)} km</li>
+      ) : null}
     </ul>
   );
 }
@@ -87,15 +90,23 @@ export default function Home({ events }: EventProps) {
     }
   }, [userPosition]);
 
-  const filteredEvents = events.filter((event) =>
-    userPosition ? eventInRadius(userPosition, event, 100) : true
-  );
+  const nearbyEvents = userPosition
+    ? events
+        .filter((event) => eventInRadius(userPosition, event, 100))
+        .map((event) => {
+          const eventPosition = point([event.longitude, event.latitude]);
+          const distanceToEvent = distance(userPosition, eventPosition, {
+            units: "kilometers",
+          });
+          return { ...event, distance: distanceToEvent };
+        })
+    : events;
 
   return (
     <>
       <LoginButton />
-      <h2> Nearby Events </h2>
-      {filteredEvents.map((event) => (
+      <h2> {userPosition ? "Nearby" : ""} Events </h2>
+      {nearbyEvents.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}
       <Head>
