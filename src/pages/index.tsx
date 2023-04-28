@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import { GetStaticProps } from "next";
 import { format } from "date-fns";
@@ -126,19 +125,20 @@ export default function Home({ events }: EventProps) {
       </Head>
       <main className={styles.main}>
         <LoginButton />
-        <div>Events within</div>
-        <select
-          value={maxRadius}
-          onChange={(e) => setMaxRadius(e.target.value)}
-        >
-          {[25, 50, 100].map((radius) => (
-            <option key={radius} value={radius}>
-              {radius} km
-            </option>
-          ))}
-          <option value={EARTH_CIRCUMFERENCE}>the planet</option>
-        </select>
-        <h2> {userPosition ? "Nearby" : ""} Events </h2>
+        <h1>Events {userPosition && "within"}</h1>
+        {userPosition && (
+          <select
+            value={maxRadius}
+            onChange={(e) => setMaxRadius(e.target.value)}
+          >
+            {[25, 50, 100].map((radius) => (
+              <option key={radius} value={radius}>
+                {radius} km
+              </option>
+            ))}
+            <option value={EARTH_CIRCUMFERENCE}>the planet</option>
+          </select>
+        )}
         {eventsWithDistance.map((event) => (
           <EventCard key={event.id} event={event} />
         ))}
