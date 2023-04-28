@@ -19,6 +19,8 @@ type EventInfo = { date: string } & Omit<
   "createdAt" | "updatedAt" | "creatorId" | "date"
 >;
 
+type EventWithDistance = EventInfo & { distance: number | null };
+
 type EventProps = {
   events: EventInfo[];
 };
@@ -59,7 +61,7 @@ function eventInRadius(
   return distanceToEvent <= radius;
 }
 
-function EventCard({ event }: { event: EventInfo & { distance?: number } }) {
+function EventCard({ event }: { event: EventWithDistance }) {
   return (
     <ul>
       <li>
@@ -71,9 +73,9 @@ function EventCard({ event }: { event: EventInfo & { distance?: number } }) {
       <li suppressHydrationWarning>
         {format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}
       </li>
-      {event.distance ? (
+      {event.distance !== null && (
         <li>Distance to event: {event.distance.toFixed(2)} km</li>
-      ) : null}
+      )}
     </ul>
   );
 }
@@ -91,22 +93,24 @@ export default function Home({ events }: EventProps) {
   }, [userPosition]);
 
   const nearbyEvents = userPosition
-    ? events
-        .filter((event) => eventInRadius(userPosition, event, 100))
-        .map((event) => {
-          const eventPosition = point([event.longitude, event.latitude]);
-          const distanceToEvent = distance(userPosition, eventPosition, {
-            units: "kilometers",
-          });
-          return { ...event, distance: distanceToEvent };
-        })
+    ? events.filter((event) => eventInRadius(userPosition, event, 100))
     : events;
+
+  const eventsWithDistance = nearbyEvents.map((event) => {
+    const eventPosition = point([event.longitude, event.latitude]);
+    const distanceToEvent = userPosition
+      ? distance(userPosition, eventPosition, {
+          units: "kilometers",
+        })
+      : null;
+    return { ...event, distance: distanceToEvent };
+  });
 
   return (
     <>
       <LoginButton />
       <h2> {userPosition ? "Nearby" : ""} Events </h2>
-      {nearbyEvents.map((event) => (
+      {eventsWithDistance.map((event) => (
         <EventCard key={event.id} event={event} />
       ))}
       <Head>
