@@ -12,6 +12,11 @@ import { prisma } from "@/db";
 import { Event } from "@prisma/client";
 import { useEffect, useState } from "react";
 
+// Given that people can (currently) be assumed to be meeting on the surface of
+// the Earth, we can use its circumference to calculate a safe upper bound for
+// the great-circle distance between two points on its surface.
+const EARTH_CIRCUMFERENCE = 40075.017;
+
 const inter = Inter({ subsets: ["latin"] });
 
 type EventInfo = { date: string } & Omit<
@@ -89,6 +94,9 @@ function EventCard({ event }: { event: EventWithDistance }) {
 
 export default function Home({ events }: EventProps) {
   const [userPosition, setUserPosition] = useState<Feature<Point> | null>(null);
+  const [maxRadius, setMaxRadius] = useState("100");
+
+  console.log(maxRadius);
   useEffect(() => {
     if (!userPosition) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -100,7 +108,7 @@ export default function Home({ events }: EventProps) {
   }, [userPosition]);
 
   const eventsInRange = events.filter((event) =>
-    eventInRadius(userPosition, event, 100)
+    eventInRadius(userPosition, event, parseInt(maxRadius, 10))
   );
 
   const eventsWithDistance = eventsInRange.map((event) => ({
@@ -111,6 +119,15 @@ export default function Home({ events }: EventProps) {
   return (
     <>
       <LoginButton />
+      <div>Events within</div>
+      <select value={maxRadius} onChange={(e) => setMaxRadius(e.target.value)}>
+        {[25, 50, 100].map((radius) => (
+          <option key={radius} value={radius}>
+            {radius} km
+          </option>
+        ))}
+        <option value={EARTH_CIRCUMFERENCE}>the planet</option>
+      </select>
       <h2> {userPosition ? "Nearby" : ""} Events </h2>
       {eventsWithDistance.map((event) => (
         <EventCard key={event.id} event={event} />
