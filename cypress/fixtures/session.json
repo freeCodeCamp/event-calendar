@@ -1,0 +1,9 @@
+{
+  "user": {
+    "name": "Dev User",
+    "email": "test@email.address",
+    "image": "https://example.com/image.jpg"
+  },
+  "expires": "5000-01-01T00:00:00.000Z",
+  "__sessionToken": "cypress-session-token"
+}
