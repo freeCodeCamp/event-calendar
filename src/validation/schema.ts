@@ -7,14 +7,15 @@ const globalForValidation = global as unknown as {
   __formatsAdded: boolean | undefined;
 };
 
+// Without this check, the format will be added twice (once by the server and
+// once by the client) causing an error to be thrown.
 if (!globalForValidation.__formatsAdded) {
   TypeSystem.Format("date-time", isISO8601);
 
   TypeSystem.Format("uri", (val) =>
     isURL(val, { protocols: ["http", "https"] })
   );
-  if (process.env.NODE_ENV !== "production")
-    globalForValidation.__formatsAdded = true;
+  globalForValidation.__formatsAdded = true;
 }
 
 export const locationSchema = Type.Object({
