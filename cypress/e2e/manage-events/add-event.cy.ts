@@ -10,9 +10,6 @@ describe("Add Event", () => {
       longitude: 0,
     }).then(() => {
       cy.visit("/");
-      // WARNING: this might become flaky depending on how we filter events on
-      // the homepage. If we filter by location, it's possible that the event
-      // will be too far away and not be displayed.
       cy.contains("Test Event");
     });
   });

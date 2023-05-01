@@ -145,7 +145,7 @@ export default function Home({ events }: EventProps) {
   const [maxRadius, setMaxRadius] = useState("100");
 
   useEffect(() => {
-    if (!userPosition) {
+    if (!userPosition && navigator.geolocation.getCurrentPosition) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setUserPosition(
@@ -156,6 +156,8 @@ export default function Home({ events }: EventProps) {
           setLocationEnabled(false);
         }
       );
+    } else {
+      setLocationEnabled(false);
     }
   }, [userPosition]);
 
