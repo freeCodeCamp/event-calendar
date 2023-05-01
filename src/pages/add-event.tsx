@@ -49,7 +49,10 @@ export default function AddEvent() {
         <input
           type="datetime-local"
           required
-          {...register("date", { required: true })}
+          {...register("date", {
+            required: true,
+            setValueAs: (value) => (value ? new Date(value).toISOString() : ""),
+          })}
         />
         {errors.date && <span>Dates must be ISO8601 compliant</span>}
       </div>

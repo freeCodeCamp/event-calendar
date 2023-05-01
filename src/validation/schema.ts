@@ -10,7 +10,7 @@ const globalForValidation = global as unknown as {
 // Without this check, the format will be added twice (once by the server and
 // once by the client) causing an error to be thrown.
 if (!globalForValidation.__formatsAdded) {
-  TypeSystem.Format("date-time", isISO8601);
+  TypeSystem.Format("date-time", (val) => isISO8601(val, { strict: true }) && val.slice(-1) === "Z");
 
   TypeSystem.Format("uri", (val) =>
     isURL(val, { protocols: ["http", "https"] })
