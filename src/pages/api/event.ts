@@ -61,6 +61,7 @@ const createEvent = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(500).json({ message: "Could not create event" });
   }
 
+  await res.revalidate("/")
   res.status(200).json({ message: "Event created" });
 };
 
