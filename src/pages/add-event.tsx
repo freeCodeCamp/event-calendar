@@ -32,14 +32,24 @@ export default function AddEvent() {
     <form onSubmit={handleSubmit(postEvent)}>
       <div>
         <label htmlFor="name">Event Name: </label>
-        <input type="text" required {...register("name", { required: true })} />
+        <input
+          data-cy="input-name"
+          type="text"
+          required
+          {...register("name", { required: true })}
+        />
         {errors.name && (
           <span>Event names must be between 1 and 100 characters long</span>
         )}
       </div>
       <div>
         <label htmlFor="link">Url: </label>
-        <input type="url" required {...register("link", { required: true })} />
+        <input
+          data-cy="input-url"
+          type="url"
+          required
+          {...register("link", { required: true })}
+        />
         {errors.link && (
           <span>URLs must include the protocol (http:// or https://)</span>
         )}
@@ -47,6 +57,7 @@ export default function AddEvent() {
       <div>
         <label htmlFor="date">Date: </label>
         <input
+          data-cy="input-date"
           type="datetime-local"
           required
           {...register("date", {
@@ -59,6 +70,7 @@ export default function AddEvent() {
       <div>
         <label htmlFor="latitude">Latitude: </label>
         <input
+          data-cy="input-latitude"
           type="text"
           required
           {...register("latitude", { required: true, valueAsNumber: true })}
@@ -70,6 +82,7 @@ export default function AddEvent() {
       <div>
         <label htmlFor="longitude">Longitude: </label>
         <input
+          data-cy="input-longitude"
           type="text"
           required
           {...register("longitude", { required: true, valueAsNumber: true })}
@@ -79,7 +92,9 @@ export default function AddEvent() {
         )}
       </div>
       <div>
-        <input type="submit" value="Create Event" />
+        <button data-cy="submit-add-event" type="submit">
+          Create Event
+        </button>
       </div>
     </form>
   );
