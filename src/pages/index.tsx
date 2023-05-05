@@ -12,7 +12,6 @@ import { prisma } from "@/db";
 import { Event } from "@prisma/client";
 import {
   type Location,
-  eventSchema,
   locationSchema,
 } from "@/validation/schema";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
@@ -99,12 +98,22 @@ function EventCard({ event }: { event: EventWithDistance }) {
   );
 }
 
-function LocationForm({ onSubmit }: { onSubmit: (data: Location) => void }) {
+function LocationForm({
+  userPosition,
+  onSubmit,
+}: {
+  userPosition: Feature<Point>;
+  onSubmit: (data: Location) => void;
+}) {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<Location>({
+    defaultValues: {
+      latitude: userPosition?.geometry.coordinates[1],
+      longitude: userPosition?.geometry.coordinates[0],
+    },
     resolver: typeboxResolver(locationSchema),
   });
 
@@ -112,7 +121,7 @@ function LocationForm({ onSubmit }: { onSubmit: (data: Location) => void }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        Enter a location to see nearby events:
+        <p>Enter a location to see nearby events: </p>
         <label htmlFor="latitude">Latitude: </label>
         <input
           type="text"
@@ -141,11 +150,11 @@ function LocationForm({ onSubmit }: { onSubmit: (data: Location) => void }) {
 
 export default function Home({ events }: EventProps) {
   const [userPosition, setUserPosition] = useState<Feature<Point> | null>(null);
-  const [locationEnabled, setLocationEnabled] = useState(true);
+  const [geoLocationEnabled, setGeoLocationEnabled] = useState(true);
   const [maxRadius, setMaxRadius] = useState("100");
 
   useEffect(() => {
-    if (!userPosition && navigator.geolocation.getCurrentPosition) {
+    if (navigator.geolocation.getCurrentPosition) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setUserPosition(
@@ -153,13 +162,34 @@ export default function Home({ events }: EventProps) {
           );
         },
         () => {
-          setLocationEnabled(false);
+          setGeoLocationEnabled(false);
         }
       );
     } else {
-      setLocationEnabled(false);
+      setGeoLocationEnabled(false);
     }
   }, [userPosition]);
+
+  useEffect(() => {
+    console.log("geoLocationEnabled", geoLocationEnabled);
+    if (!geoLocationEnabled) {
+      fetch("https://ipwho.is", {
+        method: "GET",
+      })
+        .then(async (response) => {
+          const locationData = (await response.json()) as {
+            latitude: number;
+            longitude: number;
+          };
+          setUserPosition(
+            point([locationData.longitude, locationData.latitude])
+          );
+        })
+        .catch(() => {
+          setUserPosition(point([0, 0]));
+        });
+    }
+  }, [geoLocationEnabled]);
 
   const eventsInRange = events.filter((event) =>
     eventInRadius(userPosition, event, parseInt(maxRadius, 10))
@@ -181,8 +211,9 @@ export default function Home({ events }: EventProps) {
       <main className={styles.main}>
         <LoginButton />
         <h1>Events {userPosition && "within"}</h1>
-        {!locationEnabled && (
+        {userPosition && (
           <LocationForm
+            userPosition={userPosition}
             onSubmit={({ latitude, longitude }) =>
               setUserPosition(point([longitude, latitude]))
             }
