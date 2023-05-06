@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.4.2",
-    "@types/validator": "13.7.15",
+    "@types/validator": "13.7.16",
     "cypress": "12.11.0",
     "prisma": "4.13.0"
   }
