@@ -152,6 +152,9 @@ export default function Home({ events }: EventProps) {
   const [maxRadius, setMaxRadius] = useState("100");
 
   useEffect(() => {
+    // This is necessary to prevent infinite re-renders.
+    if (userPosition) return;
+
     if (navigator.geolocation.getCurrentPosition) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
