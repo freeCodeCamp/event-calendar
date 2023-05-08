@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import distance from "@turf/distance";
 import { point, type Point, type Feature } from "@turf/helpers";
 
-import styles from "@/styles/Home.module.css";
 import LoginButton from "@/components/login-btn";
 import { prisma } from "@/db";
 import { Event } from "@prisma/client";
@@ -77,7 +76,7 @@ function eventInRadius(
 
 function EventCard({ event }: { event: EventWithDistance }) {
   return (
-    <div className={styles.card}>
+    <div>
       <h2>
         Title: <a href={event.link}>{event.name}</a>
       </h2>
@@ -201,7 +200,7 @@ export default function Home({ events }: EventProps) {
       <Head>
         <title>Tech Event Calendar</title>
       </Head>
-      <main className={styles.main}>
+      <main>
         <LoginButton />
         <h1>Events {userPosition && "within"}</h1>
         {userPosition && (
