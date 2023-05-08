@@ -31,6 +31,8 @@ jobs:
         run: pnpm prisma migrate deploy
       - name: Cypress run
         uses: cypress-io/github-action@v5
+        env:
+          NODE_ENV: test
         with:
-          build: NODE_ENV=test pnpm build
+          build: pnpm build
           start: pnpm start
