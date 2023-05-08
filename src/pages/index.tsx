@@ -76,7 +76,7 @@ function eventInRadius(
 
 function EventCard({ event }: { event: EventWithDistance }) {
   return (
-    <div>
+    <div data-cy="event-card">
       <h2>
         Title: <a href={event.link}>{event.name}</a>
       </h2>
@@ -120,6 +120,7 @@ function LocationForm({
         <p>Enter a location to see nearby events: </p>
         <label htmlFor="latitude">Latitude: </label>
         <input
+          data-cy="latitude-input"
           type="text"
           required
           {...register("latitude", { required: true, valueAsNumber: true })}
@@ -131,6 +132,7 @@ function LocationForm({
       <div>
         <label htmlFor="longitude">Longitude: </label>
         <input
+          data-cy="longitude-input"
           type="text"
           required
           {...register("longitude", { required: true, valueAsNumber: true })}
@@ -139,7 +141,7 @@ function LocationForm({
           <span>Longitude must be between -180 and 180 inclusive</span>
         )}
       </div>
-      <input type="submit" />
+      <input data-cy="submit-location" type="submit" />
     </form>
   );
 }
@@ -213,6 +215,7 @@ export default function Home({ events }: EventProps) {
         )}
         {userPosition && (
           <select
+            data-cy="radius-select"
             value={maxRadius}
             onChange={(e) => setMaxRadius(e.target.value)}
           >

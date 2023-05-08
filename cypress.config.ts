@@ -3,6 +3,7 @@ import { defineConfig } from "cypress";
 import { prisma } from "./src/db";
 
 import session from "./cypress/fixtures/session.json";
+import events25To50Km from "./cypress/fixtures/events-25-to-50km.json";
 
 const createTestUser = async () => {
   const user = await prisma.user.upsert({
@@ -30,7 +31,27 @@ const createTestUser = async () => {
   });
 };
 
+const truncateEvents = async () => await prisma.event.deleteMany({});
+
+const createEvents = async () => {
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      email: session.user.email,
+    },
+  });
+
+  const data = events25To50Km.map((event) => ({
+    ...event,
+    creatorId: user.id,
+  }));
+  await prisma.event.createMany({
+    data,
+  });
+};
+
 createTestUser();
+
+truncateEvents().then(createEvents);
 
 export default defineConfig({
   e2e: {
