@@ -172,7 +172,9 @@ export default function Home({ events }: EventProps) {
   }, [userPosition]);
 
   useEffect(() => {
-    if (!geoLocationEnabled) {
+    // NEXT_DISABLE_WHOIS is currently only set in testing and otherwise we can
+    // forget about it.
+    if (!geoLocationEnabled && process.env.NEXT_PUBLIC_DISABLE_WHOIS !== "true") {
       fetch("https://ipwho.is", {
         method: "GET",
       })
