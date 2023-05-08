@@ -171,7 +171,6 @@ export default function Home({ events }: EventProps) {
   }, [userPosition]);
 
   useEffect(() => {
-    console.log("geoLocationEnabled", geoLocationEnabled);
     if (!geoLocationEnabled) {
       fetch("https://ipwho.is", {
         method: "GET",
