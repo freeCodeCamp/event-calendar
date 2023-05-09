@@ -1,4 +1,7 @@
 describe("Homepage", () => {
+  before(() => {
+    cy.task("resetEvents");
+  });
   context("when the user is logged in", () => {
     it("should display the user's email", () => {
       cy.login();
@@ -13,7 +16,7 @@ describe("Homepage", () => {
       cy.contains("Sign in");
     });
 
-    it.only("should allow users to submit a new location", () => {
+    it("should allow users to submit a new location", () => {
       // Initialize the location to a known value
       const latitude = 10;
       const longitude = 20;
@@ -34,11 +37,11 @@ describe("Homepage", () => {
       cy.get("[data-cy='event-card']").should("not.exist");
 
       // But all 10 events are within 50km
-      cy.get("[data-cy='radius-select'").select("50"); 
+      cy.get("[data-cy='radius-select'").select("50");
       cy.get("[data-cy='event-card']")
         .should("exist")
         .should("have.length", 10);
-        
+
       // Finally we can change the location to confirm that no events are
       // available
       cy.get("[data-cy='latitude-input']")
@@ -50,7 +53,7 @@ describe("Homepage", () => {
         .clear()
         .type("1");
       cy.get("[data-cy='submit-location']").click();
-      cy.get("[data-cy='radius-select'").select("100"); 
+      cy.get("[data-cy='radius-select'").select("100");
 
       cy.get("[data-cy='events-card']").should("have.length", 0);
     });

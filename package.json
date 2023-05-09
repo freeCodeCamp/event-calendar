@@ -10,6 +10,9 @@
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  },
   "dependencies": {
     "@emotion/react": "11.11.0",
     "@emotion/styled": "11.11.0",
@@ -40,6 +43,7 @@
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/validator": "13.7.16",
     "cypress": "12.11.0",
-    "prisma": "4.13.0"
+    "prisma": "4.13.0",
+    "ts-node": "10.9.1"
   }
 }
