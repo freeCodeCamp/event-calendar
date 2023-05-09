@@ -54,6 +54,7 @@ createTestUser();
 truncateEvents().then(createEvents);
 
 export default defineConfig({
+  projectId: "xs1c9r",
   e2e: {
     baseUrl: "http://localhost:3000",
     setupNodeEvents(on, config) {
