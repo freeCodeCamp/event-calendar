@@ -33,6 +33,7 @@ jobs:
         uses: cypress-io/github-action@v5
         env:
           NODE_ENV: test
+          CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
           build: pnpm build
           start: pnpm start
