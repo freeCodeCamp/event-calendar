@@ -55,7 +55,7 @@ describe("Homepage", () => {
       cy.get("[data-cy='submit-location']").click();
       cy.get("[data-cy='radius-select'").select("100");
 
-      cy.get("[data-cy='events-card']").should("have.length", 0);
+      cy.get("[data-cy='event-card']").should("have.length", 0);
     });
   });
 });
