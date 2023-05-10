@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import distance from "@turf/distance";
 import { point, type Point, type Feature } from "@turf/helpers";
 
-import LoginButton from "@/components/login-btn";
 import { prisma } from "@/db";
 import { Event } from "@prisma/client";
 import { type Location, locationSchema } from "@/validation/schema";
@@ -213,7 +212,6 @@ export default function Home({ events }: EventProps) {
       <Typography component="h1" variant="h3">
         Tech Event Calendar
       </Typography>
-      <LoginButton />
       <Typography component="h2" variant="h4">
         {maxRadius !== EARTH_CIRCUMFERENCE
           ? "Event nearby location:"
