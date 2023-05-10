@@ -35,5 +35,6 @@ jobs:
           NODE_ENV: test
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
         with:
+          record: true
           build: pnpm build
           start: pnpm start
