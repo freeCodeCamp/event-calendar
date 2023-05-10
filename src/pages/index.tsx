@@ -12,11 +12,12 @@ import { Event } from "@prisma/client";
 import { type Location, locationSchema } from "@/validation/schema";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
 import { useForm } from "react-hook-form";
+import { Typography } from "@mui/material";
 
 // Given that people can (currently) be assumed to be meeting on the surface of
 // the Earth, we can use its circumference to calculate a safe upper bound for
 // the great-circle distance between two points on its surface.
-const EARTH_CIRCUMFERENCE = 40075.017;
+const EARTH_CIRCUMFERENCE = "40075.017";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -209,8 +210,15 @@ export default function Home({ events }: EventProps) {
       <Head>
         <title>Tech Event Calendar</title>
       </Head>
+      <Typography component="h1" variant="h3">
+        Tech Event Calendar
+      </Typography>
       <LoginButton />
-      <h1>Events around:</h1>
+      <Typography component="h2" variant="h4">
+        {maxRadius !== EARTH_CIRCUMFERENCE
+          ? "Event nearby location:"
+          : "All events"}
+      </Typography>
       {userPosition && (
         <LocationForm
           userPosition={userPosition}
