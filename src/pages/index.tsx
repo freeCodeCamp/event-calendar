@@ -117,7 +117,6 @@ function LocationForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <p>Enter a location to see nearby events: </p>
         <label htmlFor="latitude">Latitude: </label>
         <input
           data-cy="latitude-input"
@@ -174,7 +173,10 @@ export default function Home({ events }: EventProps) {
   useEffect(() => {
     // NEXT_DISABLE_WHOIS is currently only set in testing and otherwise we can
     // forget about it.
-    if (!geoLocationEnabled && process.env.NEXT_PUBLIC_DISABLE_WHOIS !== "true") {
+    if (
+      !geoLocationEnabled &&
+      process.env.NEXT_PUBLIC_DISABLE_WHOIS !== "true"
+    ) {
       fetch("https://ipwho.is", {
         method: "GET",
       })
@@ -209,7 +211,7 @@ export default function Home({ events }: EventProps) {
       </Head>
       <main>
         <LoginButton />
-        <h1>Events {userPosition && "within"}</h1>
+        <h1>Events around:</h1>
         {userPosition && (
           <LocationForm
             userPosition={userPosition}
