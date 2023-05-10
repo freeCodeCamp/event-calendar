@@ -209,35 +209,33 @@ export default function Home({ events }: EventProps) {
       <Head>
         <title>Tech Event Calendar</title>
       </Head>
-      <main>
-        <LoginButton />
-        <h1>Events around:</h1>
-        {userPosition && (
-          <LocationForm
-            userPosition={userPosition}
-            onSubmit={({ latitude, longitude }) =>
-              setUserPosition(point([longitude, latitude]))
-            }
-          />
-        )}
-        {userPosition && (
-          <select
-            data-cy="radius-select"
-            value={maxRadius}
-            onChange={(e) => setMaxRadius(e.target.value)}
-          >
-            {[25, 50, 100].map((radius) => (
-              <option key={radius} value={radius}>
-                {radius} km
-              </option>
-            ))}
-            <option value={EARTH_CIRCUMFERENCE}>the planet</option>
-          </select>
-        )}
-        {eventsWithDistance.map((event) => (
-          <EventCard key={event.id} event={event} />
-        ))}
-      </main>
+      <LoginButton />
+      <h1>Events around:</h1>
+      {userPosition && (
+        <LocationForm
+          userPosition={userPosition}
+          onSubmit={({ latitude, longitude }) =>
+            setUserPosition(point([longitude, latitude]))
+          }
+        />
+      )}
+      {userPosition && (
+        <select
+          data-cy="radius-select"
+          value={maxRadius}
+          onChange={(e) => setMaxRadius(e.target.value)}
+        >
+          {[25, 50, 100].map((radius) => (
+            <option key={radius} value={radius}>
+              {radius} km
+            </option>
+          ))}
+          <option value={EARTH_CIRCUMFERENCE}>the planet</option>
+        </select>
+      )}
+      {eventsWithDistance.map((event) => (
+        <EventCard key={event.id} event={event} />
+      ))}
     </>
   );
 }

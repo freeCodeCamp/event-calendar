@@ -1,8 +1,9 @@
 import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import { CssBaseline } from "@mui/material";
-
 import type { AppProps } from "next/app";
+
+import Layout from "@/components/layout";
 
 export default function App({
   Component,
@@ -14,7 +15,9 @@ export default function App({
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </SessionProvider>
   );
 }
