@@ -1,7 +1,7 @@
 // Eval is used in development, so we have to allow it.
 const CSP = `default-src 'self'; style-src 'self' 'unsafe-inline'; object-src 'none'; connect-src 'self' https://ipwho.is; ${
   process.env.NODE_ENV === "development"
-    ? "script-src 'self' 'unsafe-eval'"
+    ? "script-src 'self' 'unsafe-inline' 'unsafe-eval'"
     : ""
 }`;
 
