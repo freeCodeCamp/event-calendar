@@ -42,7 +42,7 @@
   "devDependencies": {
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/validator": "13.7.17",
-    "cypress": "12.11.0",
+    "cypress": "12.12.0",
     "prisma": "4.13.0",
     "ts-node": "10.9.1"
   }
