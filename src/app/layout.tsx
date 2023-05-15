@@ -1,3 +1,5 @@
+import { Providers } from "./client-only-providers";
+
 // TODO: create real metadata
 export const metadata = {
   title: "Next.js",
@@ -12,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <Providers>
+        <body>{children}</body>
+      </Providers>
     </html>
   );
 }
