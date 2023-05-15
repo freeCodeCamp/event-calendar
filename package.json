@@ -24,7 +24,7 @@
     "@sinclair/typebox": "0.28.7",
     "@turf/distance": "6.5.0",
     "@turf/helpers": "6.5.0",
-    "@types/node": "18.16.5",
+    "@types/node": "18.16.9",
     "@types/react": "18.2.6",
     "@types/react-dom": "18.2.4",
     "date-fns": "2.30.0",
