@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "pnpm clean && next dev",
     "build": "next build",
+    "clean": "rm -rf .next",
     "start": "next start",
     "lint": "next lint",
     "cypress:open": "cypress open",
