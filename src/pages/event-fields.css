@@ -1,0 +1,10 @@
+/* 
+remove the animation, because the label flow over the data picker text
+if the input isn't seleceted
+*/
+.huge-test-name label {
+    margin-top: .75em;
+    position: unset !important; 
+    -webkit-transform: unset !important; 
+    transform: unset !important;
+}
