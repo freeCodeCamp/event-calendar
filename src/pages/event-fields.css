@@ -8,3 +8,10 @@ if the input isn't seleceted
     -webkit-transform: unset !important; 
     transform: unset !important;
 }
+
+/* 
+Remove the max-width to remove the element that hide the border of the input
+*/
+.event-fields div legend {
+    max-width: 0px !important;
+}
