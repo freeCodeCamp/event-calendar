@@ -151,9 +151,6 @@ export default function Home({ events }: EventProps) {
   const [maxRadius, setMaxRadius] = useState("100");
 
   useEffect(() => {
-    // This is necessary to prevent infinite re-renders.
-    if (userPosition) return;
-
     if (navigator.geolocation.getCurrentPosition) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -168,15 +165,15 @@ export default function Home({ events }: EventProps) {
     } else {
       setGeoLocationEnabled(false);
     }
-  }, [userPosition]);
+  }, []);
 
   useEffect(() => {
-    // NEXT_DISABLE_WHOIS is currently only set in testing and otherwise we can
-    // forget about it.
-    if (
-      !geoLocationEnabled &&
-      process.env.NEXT_PUBLIC_DISABLE_WHOIS !== "true"
-    ) {
+    if (!geoLocationEnabled) {
+      // NEXT_DISABLE_WHOIS is currently only set in testing and otherwise we can
+      // forget about it...
+      if (process.env.NEXT_DISABLE_WHOIS === "true")
+        return setUserPosition(point([0, 0]));
+      // ...otherwise continue with the whois lookup
       fetch("https://ipwho.is", {
         method: "GET",
       })
@@ -214,7 +211,7 @@ export default function Home({ events }: EventProps) {
       </Typography>
       <Typography component="h2" variant="h4">
         {maxRadius !== EARTH_CIRCUMFERENCE
-          ? "Event nearby location:"
+          ? "Events nearby location:"
           : "All events"}
       </Typography>
       {userPosition && (
