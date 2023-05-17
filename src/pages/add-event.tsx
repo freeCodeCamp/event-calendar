@@ -40,7 +40,7 @@ export default function AddEvent() {
         </Typography>
         <Stack spacing={2}>
           <TextField
-            className="huge-test-name"
+            className="event-fields"
             data-cy="input-name"
             type="text"
             required
@@ -54,7 +54,7 @@ export default function AddEvent() {
           />
 
           <TextField
-            className="huge-test-name"
+            className="event-fields"
             data-cy="input-url"
             type="url"
             required
@@ -68,7 +68,7 @@ export default function AddEvent() {
           />
 
           <TextField
-            className="huge-test-name"
+            className="event-fields"
             data-cy="input-date"
             type="datetime-local"
             required
@@ -84,7 +84,7 @@ export default function AddEvent() {
 
           <TextField
             data-cy="input-latitude"
-            className="huge-test-name"
+            className="event-fields"
             type="text"
             required
             label="Latitude"
@@ -96,7 +96,7 @@ export default function AddEvent() {
           />
           <TextField
             data-cy="input-longitude"
-            className="huge-test-name"
+            className="event-fields"
             type="text"
             required
             label="Longitude"

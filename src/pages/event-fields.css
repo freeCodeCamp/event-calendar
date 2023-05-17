@@ -2,7 +2,7 @@
 remove the animation, because the label flow over the data picker text
 if the input isn't seleceted
 */
-.huge-test-name label {
+.event-fields label {
     margin-top: .75em;
     position: unset !important; 
     -webkit-transform: unset !important; 
