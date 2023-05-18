@@ -40,6 +40,7 @@ export default function AddEvent() {
         </Typography>
         <Stack spacing={2}>
           <TextField
+            className="event-fields"
             data-cy="input-name"
             type="text"
             required
@@ -53,6 +54,7 @@ export default function AddEvent() {
           />
 
           <TextField
+            className="event-fields"
             data-cy="input-url"
             type="url"
             required
@@ -66,6 +68,7 @@ export default function AddEvent() {
           />
 
           <TextField
+            className="event-fields"
             data-cy="input-date"
             type="datetime-local"
             required
@@ -81,6 +84,7 @@ export default function AddEvent() {
 
           <TextField
             data-cy="input-latitude"
+            className="event-fields"
             type="text"
             required
             label="Latitude"
@@ -92,6 +96,7 @@ export default function AddEvent() {
           />
           <TextField
             data-cy="input-longitude"
+            className="event-fields"
             type="text"
             required
             label="Longitude"
