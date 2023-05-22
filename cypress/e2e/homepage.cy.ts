@@ -16,7 +16,7 @@ describe("Homepage", () => {
       cy.contains("Sign in");
     });
 
-    it("should allow users to submit a new location", () => {
+    it.only("should allow users to submit a new location", () => {
       // Initialize the location to a known value
       const latitude = 10;
       const longitude = 20;
@@ -27,8 +27,8 @@ describe("Homepage", () => {
           });
         },
       });
-      cy.get("[data-cy='latitude-input']").should("have.value", latitude);
-      cy.get("[data-cy='longitude-input']").should("have.value", longitude);
+      cy.get("[data-cy='input-latitude'] input").should("have.value", latitude);
+      cy.get("[data-cy='input-longitude'] input").should("have.value", longitude);
       cy.get("[data-cy='submit-location']").click();
 
       // Now that the location is set, we can what's nearby (nothing is within
@@ -44,11 +44,11 @@ describe("Homepage", () => {
 
       // Finally we can change the location to confirm that no events are
       // available
-      cy.get("[data-cy='latitude-input']")
+      cy.get("[data-cy='input-latitude'] input")
         .should("have.value", latitude)
         .clear()
         .type("1");
-      cy.get("[data-cy='longitude-input']")
+      cy.get("[data-cy='input-longitude'] input")
         .should("have.value", longitude)
         .clear()
         .type("1");

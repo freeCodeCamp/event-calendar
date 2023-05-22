@@ -5,13 +5,14 @@ import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import distance from "@turf/distance";
 import { point, type Point, type Feature } from "@turf/helpers";
+import { Button, Stack, Typography } from "@mui/material";
+import { typeboxResolver } from "@hookform/resolvers/typebox";
+import { Event } from "@prisma/client";
+import { useForm } from "react-hook-form";
 
 import { prisma } from "@/db";
-import { Event } from "@prisma/client";
 import { type Location, locationSchema } from "@/validation/schema";
-import { typeboxResolver } from "@hookform/resolvers/typebox";
-import { useForm } from "react-hook-form";
-import { Typography } from "@mui/material";
+import FormField from "@/components/form-field";
 
 // Given that people can (currently) be assumed to be meeting on the surface of
 // the Earth, we can use its circumference to calculate a safe upper bound for
@@ -116,31 +117,25 @@ function LocationForm({
   // TODO: DRY this and add-event out, they're almost identical.
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label htmlFor="latitude">Latitude: </label>
-        <input
-          data-cy="latitude-input"
+      <Stack spacing={2}>
+        <FormField
+          label="Latitude: "
           type="text"
-          required
+          helperText="Latitude must be between -90 and 90 inclusive"
+          errors={errors}
           {...register("latitude", { required: true, valueAsNumber: true })}
         />
-        {errors.latitude && (
-          <span>Latitude must be between -90 and 90 inclusive</span>
-        )}
-      </div>
-      <div>
-        <label htmlFor="longitude">Longitude: </label>
-        <input
-          data-cy="longitude-input"
+        <FormField
+          label="Longitude: "
           type="text"
-          required
+          helperText="Longitude must be between -180 and 180 inclusive"
+          errors={errors}
           {...register("longitude", { required: true, valueAsNumber: true })}
         />
-        {errors.longitude && (
-          <span>Longitude must be between -180 and 180 inclusive</span>
-        )}
-      </div>
-      <input data-cy="submit-location" type="submit" />
+        <Button data-cy="submit-location" type="submit">
+          Submit
+        </Button>
+      </Stack>
     </form>
   );
 }
