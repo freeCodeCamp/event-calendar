@@ -73,6 +73,7 @@ export default function AddEvent() {
             label="Latitude"
             errors={errors}
             helperText="Latitude must be between -90 and 90 inclusive"
+            dataCy="input-latitude-add"
             {...register("latitude", { required: true, valueAsNumber: true })}
           />
           <FormField
@@ -80,6 +81,7 @@ export default function AddEvent() {
             label="Longitude"
             errors={errors}
             helperText="Longitude must be between -180 and 180 inclusive"
+            dataCy="input-longitude-add"
             {...register("longitude", { required: true, valueAsNumber: true })}
           />
 

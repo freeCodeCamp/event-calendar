@@ -16,7 +16,7 @@ describe("Homepage", () => {
       cy.contains("Sign in");
     });
 
-    it.only("should allow users to submit a new location", () => {
+    it("should allow users to submit a new location", () => {
       // Initialize the location to a known value
       const latitude = 10;
       const longitude = 20;

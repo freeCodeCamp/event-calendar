@@ -13,17 +13,26 @@ type Props<T extends FieldValues> = UseFormRegisterReturn<Path<T>> & {
   helperText: string;
   type: "url" | "text" | "datetime-local";
   required?: boolean;
+  dataCy?: string;
 };
 function FormField<FormData extends FieldValues>(
   props: Props<FormData>,
   ref: Ref<HTMLInputElement>
 ) {
-  const { errors, label, helperText, type, required, name, ...registered } =
-    props;
+  const {
+    errors,
+    label,
+    helperText,
+    type,
+    required,
+    name,
+    dataCy,
+    ...registered
+  } = props;
   return (
     <TextField
       className="event-fields"
-      data-cy={`input-${name}`}
+      data-cy={dataCy ?? `input-${name}`}
       type={type}
       label={label}
       error={!!errors[name]}
