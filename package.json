@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "pnpm clean && next dev",
     "build": "next build",
-    "clean": "rm -rf .next",
+    "clean": "rm -rf .next && prisma generate",
     "start": "next start",
     "lint": "next lint",
     "cypress:open": "cypress open",
