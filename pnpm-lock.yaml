@@ -36,8 +36,8 @@ dependencies:
     specifier: 6.5.0
     version: 6.5.0
   '@types/node':
-    specifier: 18.16.20
-    version: 18.16.20
+    specifier: 18.17.0
+    version: 18.17.0
   '@types/react':
     specifier: 18.2.11
     version: 18.2.11
@@ -93,7 +93,7 @@ devDependencies:
     version: 4.16.2
   ts-node:
     specifier: 10.9.1
-    version: 10.9.1(@types/node@18.16.20)(typescript@5.1.6)
+    version: 10.9.1(@types/node@18.17.0)(typescript@5.1.6)
 
 packages:
 
@@ -794,8 +794,8 @@ packages:
     resolution: {integrity: sha512-n3eFEaoem0WNwLux+k272P0+aq++5o05bA9CfiwKPdYPB5ZambWKdWoeHy7/OJiizMhzg27NLaZ6uzjLTzXceQ==}
     dev: true
 
-  /@types/node@18.16.20:
-    resolution: {integrity: sha512-nL54VfDjThdP2UXJXZao5wp76CDiDw4zSRO8d4Tk7UgDqNKGKVEQB0/t3ti63NS+YNNkIQDvwEAF04BO+WYu7Q==}
+  /@types/node@18.17.0:
+    resolution: {integrity: sha512-GXZxEtOxYGFchyUzxvKI14iff9KZ2DI+A6a37o6EQevtg6uO9t+aUZKcaC1Te5Ng1OnLM7K9NVVj+FbecD9cJg==}
 
   /@types/parse-json@4.0.0:
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -851,7 +851,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.16.20
+      '@types/node': 18.17.0
     dev: true
     optional: true
 
@@ -3577,7 +3577,7 @@ packages:
       punycode: 2.3.0
     dev: true
 
-  /ts-node@10.9.1(@types/node@18.16.20)(typescript@5.1.6):
+  /ts-node@10.9.1(@types/node@18.17.0)(typescript@5.1.6):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -3596,7 +3596,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.16.20
+      '@types/node': 18.17.0
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
