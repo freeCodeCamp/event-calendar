@@ -27,8 +27,8 @@ dependencies:
     specifier: 4.16.2
     version: 4.16.2(prisma@4.16.2)
   '@sinclair/typebox':
-    specifier: 0.28.16
-    version: 0.28.16
+    specifier: 0.30.2
+    version: 0.30.2
   '@turf/distance':
     specifier: 6.5.0
     version: 6.5.0
@@ -732,8 +732,8 @@ packages:
     resolution: {integrity: sha512-sXo/qW2/pAcmT43VoRKOJbDOfV3cYpq3szSVfIThQXNt+E4DfKj361vaAt3c88U5tPUxzEswam7GW48PJqtKAg==}
     dev: false
 
-  /@sinclair/typebox@0.28.16:
-    resolution: {integrity: sha512-0MqOedIj2ZjvCtUwibzubKdVzIDihAdCAEtoMAEDzuRpdlRtw/MlXbkNZaM+cjU8h0ApR0uctmakKgSY9kQqLg==}
+  /@sinclair/typebox@0.30.2:
+    resolution: {integrity: sha512-PNEojrBZGQL+llfGfGn6EZNHUXxyvA3LeySMUxMk+i+GrtuT1nBBP3BPzzgJKW9b7lUMa9KxHVx+CIPEy5bL5w==}
     dev: false
 
   /@swc/helpers@0.5.1:
