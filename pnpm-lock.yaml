@@ -86,8 +86,8 @@ devDependencies:
     specifier: 13.7.17
     version: 13.7.17
   cypress:
-    specifier: 12.17.2
-    version: 12.17.2
+    specifier: 12.17.3
+    version: 12.17.3
   prisma:
     specifier: 4.16.2
     version: 4.16.2
@@ -783,8 +783,8 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: false
 
-  /@types/node@14.18.43:
-    resolution: {integrity: sha512-n3eFEaoem0WNwLux+k272P0+aq++5o05bA9CfiwKPdYPB5ZambWKdWoeHy7/OJiizMhzg27NLaZ6uzjLTzXceQ==}
+  /@types/node@16.18.39:
+    resolution: {integrity: sha512-8q9ZexmdYYyc5/cfujaXb4YOucpQxAV4RMG0himLyDUOEr8Mr79VrqsFI+cQ2M2h89YIuy95lbxuYjxT4Hk4kQ==}
     dev: true
 
   /@types/node@18.17.1:
@@ -1341,15 +1341,15 @@ packages:
     resolution: {integrity: sha512-I7K1Uu0MBPzaFKg4nI5Q7Vs2t+3gWWW648spaF+Rg7pI9ds18Ugn+lvg4SHczUdKlHI5LWBXyqfS8+DufyBsgQ==}
     dev: false
 
-  /cypress@12.17.2:
-    resolution: {integrity: sha512-hxWAaWbqQBzzMuadSGSuQg5PDvIGOovm6xm0hIfpCVcORsCAj/gF2p0EvfnJ4f+jK2PCiDgP6D2eeE9/FK4Mjg==}
+  /cypress@12.17.3:
+    resolution: {integrity: sha512-/R4+xdIDjUSLYkiQfwJd630S81KIgicmQOLXotFxVXkl+eTeVO+3bHXxdi5KBh/OgC33HWN33kHX+0tQR/ZWpg==}
     engines: {node: ^14.0.0 || ^16.0.0 || >=18.0.0}
     hasBin: true
     requiresBuild: true
     dependencies:
       '@cypress/request': 2.88.11
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
-      '@types/node': 14.18.43
+      '@types/node': 16.18.39
       '@types/sinonjs__fake-timers': 8.1.1
       '@types/sizzle': 2.3.3
       arch: 2.2.0
