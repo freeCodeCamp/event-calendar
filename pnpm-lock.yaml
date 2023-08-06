@@ -15,8 +15,8 @@ dependencies:
     specifier: 4.5.8
     version: 4.5.8
   '@hookform/resolvers':
-    specifier: 3.1.1
-    version: 3.1.1(react-hook-form@7.45.4)
+    specifier: 3.2.0
+    version: 3.2.0(react-hook-form@7.45.4)
   '@mui/material':
     specifier: 5.14.3
     version: 5.14.3(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.18)(react-dom@18.2.0)(react@18.2.0)
@@ -362,8 +362,8 @@ packages:
     resolution: {integrity: sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==}
     dev: false
 
-  /@hookform/resolvers@3.1.1(react-hook-form@7.45.4):
-    resolution: {integrity: sha512-tS16bAUkqjITNSvbJuO1x7MXbn7Oe8ZziDTJdA9mMvsoYthnOOiznOTGBYwbdlYBgU+tgpI/BtTU3paRbCuSlg==}
+  /@hookform/resolvers@3.2.0(react-hook-form@7.45.4):
+    resolution: {integrity: sha512-skXQHhLxq0Sz2xDwCyv5dygBCtXJe1GmWwxDzfdtl0X6agD6qcyTG8HrZWkjJoy8AkiLARqYvSYJ8z7+Nwmi7w==}
     peerDependencies:
       react-hook-form: ^7.0.0
     dependencies:
