@@ -22,7 +22,7 @@ dependencies:
     version: 5.14.5(@emotion/react@11.11.1)(@emotion/styled@11.11.0)(@types/react@18.2.20)(react-dom@18.2.0)(react@18.2.0)
   '@next-auth/prisma-adapter':
     specifier: ^1.0.6
-    version: 1.0.6(@prisma/client@4.16.2)(next-auth@4.23.0)
+    version: 1.0.6(@prisma/client@4.16.2)(next-auth@4.23.1)
   '@prisma/client':
     specifier: 4.16.2
     version: 4.16.2(prisma@4.16.2)
@@ -60,8 +60,8 @@ dependencies:
     specifier: 13.4.13
     version: 13.4.13(react-dom@18.2.0)(react@18.2.0)
   next-auth:
-    specifier: 4.23.0
-    version: 4.23.0(next@13.4.13)(react-dom@18.2.0)(react@18.2.0)
+    specifier: 4.23.1
+    version: 4.23.1(next@13.4.13)(react-dom@18.2.0)(react@18.2.0)
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -564,14 +564,14 @@ packages:
       react-is: 18.2.0
     dev: false
 
-  /@next-auth/prisma-adapter@1.0.6(@prisma/client@4.16.2)(next-auth@4.23.0):
+  /@next-auth/prisma-adapter@1.0.6(@prisma/client@4.16.2)(next-auth@4.23.1):
     resolution: {integrity: sha512-Z7agwfSZEeEcqKqrnisBun7VndRPshd6vyDsoRU68MXbkui8storkHgvN2hnNDrqr/hSCF9aRn56a1qpihaB4A==}
     peerDependencies:
       '@prisma/client': '>=2.26.0 || >=3'
       next-auth: ^4
     dependencies:
       '@prisma/client': 4.16.2(prisma@4.16.2)
-      next-auth: 4.23.0(next@13.4.13)(react-dom@18.2.0)(react@18.2.0)
+      next-auth: 4.23.1(next@13.4.13)(react-dom@18.2.0)(react@18.2.0)
     dev: false
 
   /@next/env@13.4.13:
@@ -2794,8 +2794,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: false
 
-  /next-auth@4.23.0(next@13.4.13)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-RgukcJkBdvsJwEfA+B80Wcowvtgy6tk8KKWffb7CMCdzcLO4fCCA6aB6sp/DZ2I0ISvWGnbVcO5KXmlan71igw==}
+  /next-auth@4.23.1(next@13.4.13)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-mL083z8KgRtlrIV6CDca2H1kduWJuK/3pTS0Fe2og15KOm4v2kkLGdSDfc2g+019aEBrJUT0pPW2Xx42ImN1WA==}
     peerDependencies:
       next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
