@@ -83,8 +83,8 @@ devDependencies:
     specifier: ^0.4.2
     version: 0.4.2
   '@types/validator':
-    specifier: 13.11.5
-    version: 13.11.5
+    specifier: 13.11.7
+    version: 13.11.7
   cypress:
     specifier: 12.17.4
     version: 12.17.4
@@ -861,8 +861,8 @@ packages:
     resolution: {integrity: sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==}
     dev: true
 
-  /@types/validator@13.11.5:
-    resolution: {integrity: sha512-xW4qsT4UIYILu+7ZrBnfQdBYniZrMLYYK3wN9M/NdeIHgBN5pZI2/8Q7UfdWIcr5RLJv/OGENsx91JIpUUoC7Q==}
+  /@types/validator@13.11.7:
+    resolution: {integrity: sha512-q0JomTsJ2I5Mv7dhHhQLGjMvX0JJm5dyZ1DXQySIUzU1UlwzB8bt+R6+LODUbz0UDIOvEzGc28tk27gBJw2N8Q==}
     dev: true
 
   /@types/yauzl@2.10.0:
