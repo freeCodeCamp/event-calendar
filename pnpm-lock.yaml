@@ -36,8 +36,8 @@ dependencies:
     specifier: 6.5.0
     version: 6.5.0
   '@types/node':
-    specifier: 18.19.1
-    version: 18.19.1
+    specifier: 18.19.2
+    version: 18.19.2
   '@types/react':
     specifier: 18.2.41
     version: 18.2.41
@@ -93,7 +93,7 @@ devDependencies:
     version: 4.16.2
   ts-node:
     specifier: 10.9.1
-    version: 10.9.1(@types/node@18.19.1)(typescript@5.3.2)
+    version: 10.9.1(@types/node@18.19.2)(typescript@5.3.2)
 
 packages:
 
@@ -825,8 +825,8 @@ packages:
     resolution: {integrity: sha512-8q9ZexmdYYyc5/cfujaXb4YOucpQxAV4RMG0himLyDUOEr8Mr79VrqsFI+cQ2M2h89YIuy95lbxuYjxT4Hk4kQ==}
     dev: true
 
-  /@types/node@18.19.1:
-    resolution: {integrity: sha512-mZJ9V11gG5Vp0Ox2oERpeFDl+JvCwK24PGy76vVY/UgBtjwJWc5rYBThFxmbnYOm9UPZNm6wEl/sxHt2SU7x9A==}
+  /@types/node@18.19.2:
+    resolution: {integrity: sha512-6wzfBdbWpe8QykUkXBjtmO3zITA0A3FIjoy+in0Y2K4KrCiRhNYJIdwAPDffZ3G6GnaKaSLSEa9ZuORLfEoiwg==}
     dependencies:
       undici-types: 5.26.5
 
@@ -878,7 +878,7 @@ packages:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}
     requiresBuild: true
     dependencies:
-      '@types/node': 18.19.1
+      '@types/node': 18.19.2
     dev: true
     optional: true
 
@@ -3999,7 +3999,7 @@ packages:
       url-parse: 1.5.10
     dev: true
 
-  /ts-node@10.9.1(@types/node@18.19.1)(typescript@5.3.2):
+  /ts-node@10.9.1(@types/node@18.19.2)(typescript@5.3.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -4018,7 +4018,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.19.1
+      '@types/node': 18.19.2
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
