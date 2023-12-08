@@ -45,6 +45,6 @@
     "@types/validator": "13.11.7",
     "cypress": "12.17.4",
     "prisma": "4.16.2",
-    "ts-node": "10.9.1"
+    "ts-node": "10.9.2"
   }
 }
