@@ -1,0 +1,50 @@
+name: Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-22.04
+    environment: staging # Hardcoded for now. TODO: use a matrix?
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [20.x]
+        site_tlds: ['dev']
+        apps: ['app']
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@1a4442cacd436585916779262731d5b162bc6ec7 # v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Create a tagname
+        id: tagname
+        run: |
+          echo "tagname=$(git rev-parse --short HEAD)-$(date +%Y%m%d)-$(date +%H%M)" >> $GITHUB_ENV
+
+      - name: Build & Tag Images
+        run: |
+          docker build . \
+          --tag registry.digitalocean.com/${{ vars.DOCR_NAME }}/${{ matrix.site_tlds }}/tech-event-calendar-${{ matrix.apps }}:$tagname \
+          --tag registry.digitalocean.com/${{ vars.DOCR_NAME }}/${{ matrix.site_tlds }}/tech-event-calendar-${{ matrix.apps }}:latest \
+          --file docker/${{ matrix.apps }}/Dockerfile
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Log in to DigitalOcean Container Registry with short-lived credentials
+        run: doctl registry login --expiry-seconds 1200
+
+      - name: Push image to DigitalOcean Container Registry
+        run: |
+          docker push registry.digitalocean.com/${{ vars.DOCR_NAME }}/${{ matrix.site_tlds }}/tech-event-calendar-${{ matrix.apps }}:$tagname
+          docker push registry.digitalocean.com/${{ vars.DOCR_NAME }}/${{ matrix.site_tlds }}/tech-event-calendar-${{ matrix.apps }}:latest
