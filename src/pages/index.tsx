@@ -33,20 +33,30 @@ type EventProps = {
 };
 
 export const getStaticProps: GetStaticProps<EventProps> = async () => {
-  const events = await prisma.event.findMany({
-    select: {
-      id: true,
-      name: true,
-      date: true,
-      link: true,
-      latitude: true,
-      longitude: true,
-    },
-  });
-  const serializeableEvents = events.map((event) => ({
-    ...event,
-    date: event.date.toISOString(),
-  }));
+  let serializeableEvents: EventInfo[] = [];
+  try {
+    const events = await prisma.event.findMany({
+      select: {
+        id: true,
+        name: true,
+        date: true,
+        link: true,
+        latitude: true,
+        longitude: true,
+      },
+    });
+    serializeableEvents = events.map((event) => ({
+      ...event,
+      date: event.date.toISOString(),
+    }));
+  } catch (e) {
+    console.log();
+    console.log("Error fetching events from database");
+    console.log(
+      "If this happens while building the image, it's fine, it just means the database isn't available"
+    );
+    console.log(e);
+  }
 
   return {
     props: {
