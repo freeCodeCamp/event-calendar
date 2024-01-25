@@ -25,7 +25,7 @@ describe("Delete Event", () => {
   describe.only("api", () => {
     it("should allow users with @freecodecamp.org emails to delete events", () => {
       cy.login("hypo.thetical@freecodecamp.org");
-      cy.request("DELETE", "/api/event/1").then((response) => {
+      cy.request("DELETE", "/api/events/1").then((response) => {
         expect(response.status).to.eq(200);
         expect(response.body).to.have.property("id", 1);
       });
@@ -35,7 +35,7 @@ describe("Delete Event", () => {
       cy.login("test@email.address");
       cy.request({
         method: "DELETE",
-        url: "/api/event/1",
+        url: "/api/events/1",
         failOnStatusCode: false,
       }).then((response) => {
         expect(response.status).to.eq(403);
