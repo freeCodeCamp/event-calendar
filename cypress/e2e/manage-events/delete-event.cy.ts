@@ -22,7 +22,7 @@ describe("Delete Event", () => {
     });
   });
 
-  describe.only("api", () => {
+  describe("api", () => {
     it("should allow users with @freecodecamp.org emails to delete events", () => {
       cy.login("hypo.thetical@freecodecamp.org");
       cy.request("DELETE", "/api/events/1").then((response) => {
