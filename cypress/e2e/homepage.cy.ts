@@ -4,9 +4,15 @@ describe("Homepage", () => {
   });
   context("when the user is logged in", () => {
     it("should display the user's email", () => {
-      cy.login();
+      cy.login("test@email.address");
       cy.visit("/");
       cy.contains("test@email.address");
+    });
+    
+    it("should display the other test users's email", () => {
+      cy.login("hypo.thetical@freecodecamp.org");
+      cy.visit("/");
+      cy.contains("hypo.thetical@freecodecamp.org");
     });
   });
 

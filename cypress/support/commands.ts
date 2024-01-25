@@ -3,14 +3,15 @@
 declare global {
   namespace Cypress {
     interface Chainable {
-      login(): typeof login;
+      login: typeof login;
     }
   }
 }
 
-function login() {
+function login(email: string) {
   // We do not need cy.session, here, because there's nothing to be persisted.
-  cy.setCookie("next-auth.session-token", "cypress-session-token");
+  // The cookie is set to match the email, so that
+  cy.setCookie("next-auth.session-token", email);
 }
 
 Cypress.Commands.add("login", login);
