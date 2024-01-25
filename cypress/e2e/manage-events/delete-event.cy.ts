@@ -27,7 +27,7 @@ describe("Delete Event", () => {
       cy.login("hypo.thetical@freecodecamp.org");
       cy.request("DELETE", "/api/events/1").then((response) => {
         expect(response.status).to.eq(200);
-        expect(response.body).to.have.property("id", 1);
+        expect(response.body).to.have.property("id", "1");
       });
     });
 
@@ -39,7 +39,30 @@ describe("Delete Event", () => {
         failOnStatusCode: false,
       }).then((response) => {
         expect(response.status).to.eq(403);
-        expect(response.body).to.equal({ message: "Forbidden" });
+        expect(response.body).to.deep.equal({ message: "Forbidden" });
+      });
+    });
+
+    it("should not allow unauthenticated users to delete events", () => {
+      cy.request({
+        method: "DELETE",
+        url: "/api/events/1",
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(401);
+        expect(response.body).to.deep.equal({ message: "No session" });
+      });
+    });
+
+    it("should not allow users to delete events that don't exist", () => {
+      cy.login("hypo.thetical@freecodecamp.org");
+      cy.request({
+        method: "DELETE",
+        url: "/api/events/999",
+        failOnStatusCode: false,
+      }).then((response) => {
+        expect(response.status).to.eq(400);
+        expect(response.body).to.deep.equal({ message: "Event does not exist" });
       });
     });
   });
