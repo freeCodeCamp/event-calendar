@@ -17,6 +17,7 @@ const deleteEvent = async (req: NextApiRequest, res: NextApiResponse) => {
     } else {
       try {
         await prisma.event.delete({ where: { id: req.query.id } });
+        res.revalidate("/");
         res.status(200).json({ id: req.query.id });
       } catch (error) {
         console.error(error);
