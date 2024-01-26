@@ -13,8 +13,6 @@ export function EventCard({ event }: { event: EventWithDistance }) {
   const canDelete = isStaff(data?.email);
 
   async function deleteEvent(id: string) {
-    // TODO: Refresh events (or just reload the page) after deletion
-    // ideally keeping the 'radius' state between refreshes
     const res = await fetch(`/api/events/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
