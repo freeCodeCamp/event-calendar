@@ -2,7 +2,7 @@ import { latitude, longitude } from "../fixtures/default-location.json";
 
 describe("Homepage", () => {
   before(() => {
-    cy.task("resetEvents");
+    cy.resetEvents();
   });
   context("when the user is logged in", () => {
     it("should display the user's email", () => {

@@ -2,7 +2,7 @@ import { latitude, longitude } from "../../fixtures/default-location.json";
 
 describe("Delete Event", () => {
   beforeEach(() => {
-    cy.task("resetEvents");
+    cy.resetEvents();
   });
 
   describe("ui", () => {
