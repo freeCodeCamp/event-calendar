@@ -1,3 +1,5 @@
+import { latitude, longitude } from "../../fixtures/default-location.json";
+
 describe("Delete Event", () => {
   beforeEach(() => {
     cy.task("resetEvents");
@@ -6,7 +8,7 @@ describe("Delete Event", () => {
   describe("ui", () => {
     it("should allow users with @freecodecamp.org emails to delete events", () => {
       cy.login("hypo.thetical@freecodecamp.org");
-      cy.visit("/");
+      cy.visitAtCoords("/", { latitude, longitude });
 
       cy.get("[data-cy='event-card']").should("have.length", 10);
       // TODO: use a confirm modal instead of a button
@@ -16,7 +18,7 @@ describe("Delete Event", () => {
 
     it("should should not show the delete button to other users", () => {
       cy.login("test@email.address");
-      cy.visit("/");
+      cy.visitAtCoords("/", { latitude, longitude });
 
       cy.get("[data-cy='delete-event']").should("not.exist");
     });
@@ -62,7 +64,9 @@ describe("Delete Event", () => {
         failOnStatusCode: false,
       }).then((response) => {
         expect(response.status).to.eq(400);
-        expect(response.body).to.deep.equal({ message: "Event does not exist" });
+        expect(response.body).to.deep.equal({
+          message: "Event does not exist",
+        });
       });
     });
   });
