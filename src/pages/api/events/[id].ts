@@ -1,4 +1,4 @@
-import { getEmailFromSession } from "@/lib/session-utils";
+import { getEmailFromSession, isStaff } from "@/lib/session-utils";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getServerSession } from "next-auth/next";
 
@@ -11,7 +11,7 @@ const deleteEvent = async (req: NextApiRequest, res: NextApiResponse) => {
   const { err: sessionErr, data: user } = getEmailFromSession(maybeSession);
   if (sessionErr) return res.status(401).json({ message: sessionErr.message });
 
-  if (user.email.endsWith("@freecodecamp.org")) {
+  if (isStaff(user.email)) {
     if (!(typeof req.query.id === "string")) {
       return res.status(400).json({ message: "Invalid id provided." });
     } else {

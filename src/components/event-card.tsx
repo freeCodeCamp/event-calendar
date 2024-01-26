@@ -1,7 +1,24 @@
 import { format } from "date-fns";
 import type { EventWithDistance } from "@/types";
+import { useSession } from "next-auth/react";
+
+import { getEmailFromSession, isStaff } from "@/lib/session-utils";
+import { Button } from "@mui/material";
+
+async function deleteEvent(id: string) {
+  // TODO: Refresh events (or just reload the page) after deletion
+  // ideally keeping the 'radius' state between refreshes
+  const res = await fetch(`/api/events/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+  });
+}
 
 export function EventCard({ event }: { event: EventWithDistance }) {
+  const { data: session } = useSession();
+  const { data } = getEmailFromSession(session);
+  const canDelete = isStaff(data?.email);
+
   return (
     <div data-cy="event-card">
       <h2>
@@ -16,6 +33,12 @@ export function EventCard({ event }: { event: EventWithDistance }) {
       </p>
       {event.distance !== null && (
         <p>Distance to event: {event.distance.toFixed(2)} km</p>
+      )}
+      {canDelete && (
+        // TODO: Add a confirmation dialog and make it redder.
+        <Button onClick={() => deleteEvent(event.id)} data-cy="delete-event">
+          Delete
+        </Button>
       )}
     </div>
   );
