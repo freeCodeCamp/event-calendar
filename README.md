@@ -27,7 +27,7 @@ If not using Docker, you need to create a PostgreSQL database named `tech-event-
 To migrate the database:
 
 ```sh
-pnpm run prisma migrate deploy
+pnpm prisma migrate deploy
 ```
 
 ### Start the server
