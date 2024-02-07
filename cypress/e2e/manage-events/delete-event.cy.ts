@@ -1,5 +1,13 @@
 import { latitude, longitude } from "../../fixtures/default-location.json";
 
+// Until the user is signed in, the delete button will not be rendered, so we
+// wait.
+const waitForSignIn = () => {
+  cy.get("[data-cy='sign-out-btn']").should("be.visible");
+};
+
+const getEventCards = () => cy.get("[data-cy='event-card']").as("eventCards");
+
 describe("Delete Event", () => {
   beforeEach(() => {
     cy.resetEvents();
@@ -9,18 +17,24 @@ describe("Delete Event", () => {
     it("should allow users with @freecodecamp.org emails to delete events", () => {
       cy.login("hypo.thetical@freecodecamp.org");
       cy.visitAtCoords("/", { latitude, longitude });
+      waitForSignIn();
+      getEventCards().should("have.length", 10);
 
-      cy.get("[data-cy='event-card']").should("have.length", 10);
-      // TODO: use a confirm modal instead of a button
-      cy.get("[data-cy='delete-event']").first().click();
-      cy.get("[data-cy='event-card']").should("have.length", 9);
+      cy.get("@eventCards")
+        .first()
+        .find("[data-cy='alert-dialog-open']")
+        .click();
+      cy.get("[data-cy='alert-dialog-agree']").click();
+
+      cy.get("@eventCards").should("have.length", 9);
     });
 
-    it("should should not show the delete button to other users", () => {
+    it("should should not show delete buttons to other users", () => {
       cy.login("test@email.address");
       cy.visitAtCoords("/", { latitude, longitude });
+      waitForSignIn();
 
-      cy.get("[data-cy='delete-event']").should("not.exist");
+      getEventCards().find("[data-cy='alert-dialog-open']").should("not.exist");
     });
   });
 

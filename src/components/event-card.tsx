@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 
 import { getEmailFromSession, isStaff } from "@/lib/session-utils";
 import { Button } from "@mui/material";
+import AlertDialog from "./alert-dialog";
 
 export function EventCard({ event }: { event: EventWithDistance }) {
   const { data: session } = useSession();
@@ -36,10 +37,13 @@ export function EventCard({ event }: { event: EventWithDistance }) {
         <p>Distance to event: {event.distance.toFixed(2)} km</p>
       )}
       {canDelete && (
-        // TODO: Add a confirmation dialog and make it redder.
-        <Button onClick={() => deleteEvent(event.id)} data-cy="delete-event">
-          Delete
-        </Button>
+        <AlertDialog
+          openText="Delete"
+          dialogText="Are you sure you want to delete this event?"
+          agreeText="Delete"
+          disagreeText="Cancel"
+          onAgree={() => deleteEvent(event.id)}
+        />
       )}
     </div>
   );
