@@ -39,6 +39,7 @@ const createEvents = async () => {
   const data = events25To50Km.map((event) => ({
     ...event,
     creatorId: user.id,
+    organizedBy: session.user.name,
   }));
   await prisma.event.createMany({
     data,
@@ -51,4 +52,3 @@ export const setupDb = async () => {
 };
 
 setupDb();
-

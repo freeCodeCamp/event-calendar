@@ -33,6 +33,7 @@ export const getStaticProps: GetStaticProps<EventProps> = async () => {
         link: true,
         latitude: true,
         longitude: true,
+        organizedBy: true,
       },
     });
     serializeableEvents = events.map((event) => ({

@@ -7,6 +7,8 @@ export function EventCard({ event }: { event: EventWithDistance }) {
       <h2>
         Title: <a href={event.link}>{event.name}</a>
       </h2>
+      
+      <p>Organized by: {event.organizedBy}</p>
 
       {/* TODO: replace with a spinner (or similar) to gracefully handle
           the delay between receiving the HTML and the browser rendering 

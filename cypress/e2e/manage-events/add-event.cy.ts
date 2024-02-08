@@ -12,6 +12,7 @@ describe("Add Event", () => {
     cy.get("[data-cy='input-link']").type("https://test.event");
     cy.get("[data-cy='input-latitude-add'").type("0");
     cy.get("[data-cy='input-longitude-add'").type("0");
+    cy.get("[data-cy='input-organizedBy'").type("Test Organizer");
     cy.get("[data-cy='submit-add-event'").click();
 
     cy.location("pathname").should("eq", "/");
@@ -29,5 +30,6 @@ describe("Add Event", () => {
     // We should only see the event we just created
     cy.get("[data-cy='event-card']").should("have.length", 1);
     cy.contains("Test Event");
+    cy.contains("Test Organizer");
   });
 });
