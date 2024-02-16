@@ -1,0 +1,129 @@
+/* navigation */
+/* html {
+  background-color: var(--secondary-background);
+} */
+
+html {
+  font-size: 18px;
+}
+
+header {
+  height: var(--header-height);
+}
+
+body {
+  background: var(--gray-05);
+}
+
+hr {
+  border-top: 1px solid var(--quaternary-background);
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.main-layout h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 2rem 0;
+}
+
+.main-layout h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0.6rem 0;
+}
+
+.input-form input {
+  background-color: white;
+  padding: 0.3rem 0.6rem;
+}
+
+.input-form label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--secondary-color);
+  margin-top: 0;
+}
+
+.navigation-container {
+  box-shadow: none;
+  background-color: var(--primary-color);
+}
+
+.navigation-toolbar {
+  max-height: var(--header-height);
+  min-height: var(--header-height);
+}
+
+.css-18gifrm-MuiInputBase-root-MuiOutlinedInput-root,
+.css-126nd9x-MuiPaper-root {
+  border-radius: 0;
+}
+
+.radius-selector {
+  border-radius: 0;
+  height: 36px;
+  background-color: var(--primary-background);
+  margin-top: 0px !important;
+  padding-top: 0px;
+}
+
+.radius-selector div {
+  border-radius: 0;
+}
+
+.login-btn {
+  color: #0a0a23;
+  font-size: 18px;
+  max-height: 30px;
+  margin-left: 1rem;
+  border: 3px solid #feac32;
+  border-radius: 0;
+  background: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  text-transform: none;
+  padding: 0.5rem 1rem;
+}
+
+.login-btn:hover {
+  background-color: #fecc4c;
+  background-image: none;
+}
+
+#menu- div {
+  border-radius: 0;
+  box-shadow: none;
+}
+.input-form ul {
+  border-radius: 0px;
+}
+
+button.submit-button {
+  background-color: var(--tertiary-background);
+  border-radius: 0;
+  color: var(--secondary-color);
+  border: 3px solid var(--secondary-color);
+  text-transform: none;
+  font-size: 23px;
+}
+button.submit-button:hover {
+  background-color: var(--tertiary-color);
+  color: var(--secondary-background);
+  text-transform: none;
+  font-size: 23px;
+}
+
+.nav-button {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  margin-left: 0.5rem;
+  padding: 0rem 0.5rem;
+}
+
+.nav-button:hover {
+  color: var(--gray-90);
+  background-color: var(--gray-00);
+  text-decoration: none;
+}
