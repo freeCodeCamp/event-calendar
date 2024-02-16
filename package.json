@@ -17,7 +17,6 @@
   "dependencies": {
     "@emotion/react": "11.11.3",
     "@emotion/styled": "11.11.0",
-    "@fontsource/roboto": "4.5.8",
     "@hookform/resolvers": "3.3.4",
     "@mui/material": "5.15.10",
     "@next-auth/prisma-adapter": "^1.0.6",

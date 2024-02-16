@@ -1,11 +1,19 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GetStaticProps } from "next";
-import { format } from "date-fns";
+import { format, max } from "date-fns";
 import { useEffect, useState } from "react";
 import distance from "@turf/distance";
 import { point, type Point, type Feature } from "@turf/helpers";
-import { Button, Stack, Typography } from "@mui/material";
+import {
+  Button,
+  Stack,
+  Typography,
+  InputLabel,
+  Select,
+  MenuItem,
+} from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
 import { typeboxResolver } from "@hookform/resolvers/typebox";
 import { Event } from "@prisma/client";
 import { useForm } from "react-hook-form";
@@ -108,9 +116,13 @@ function EventCard({ event }: { event: EventWithDistance }) {
 function LocationForm({
   userPosition,
   onSubmit,
+  setMaxRadius,
+  maxRadius,
 }: {
   userPosition: Feature<Point>;
   onSubmit: (data: Location) => void;
+  setMaxRadius: (radius: string) => void;
+  maxRadius: string;
 }) {
   const {
     register,
@@ -124,9 +136,16 @@ function LocationForm({
     resolver: typeboxResolver(locationSchema),
   });
 
+  const handleChange = (event: SelectChangeEvent<typeof maxRadius>) => {
+    const {
+      target: { value },
+    } = event;
+    setMaxRadius(value);
+  };
+
   // TODO: DRY this and add-event out, they're almost identical.
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form className={"input-form"} onSubmit={handleSubmit(onSubmit)}>
       <Stack spacing={2}>
         <FormField
           label="Latitude: "
@@ -142,8 +161,28 @@ function LocationForm({
           errors={errors}
           {...register("longitude", { required: true, valueAsNumber: true })}
         />
-        <Button data-cy="submit-location" type="submit">
-          Submit
+        <InputLabel id="demo-multiple-name-label">Distance Radius:</InputLabel>
+        <Select
+          labelId="demo-multiple-name-label"
+          id="demo-multiple-name"
+          value={maxRadius}
+          onChange={handleChange}
+          data-cy="radius-select"
+          className="radius-selector"
+        >
+          {[25, 50, 100].map((name) => (
+            <MenuItem key={name} value={name}>
+              {name} km
+            </MenuItem>
+          ))}
+          <MenuItem value={EARTH_CIRCUMFERENCE}>All</MenuItem>
+        </Select>
+        <Button
+          data-cy="submit-location"
+          type="submit"
+          className="submit-button"
+        >
+          Search
         </Button>
       </Stack>
     </form>
@@ -215,31 +254,20 @@ export default function Home({ events }: EventProps) {
         Tech Event Calendar
       </Typography>
       <Typography component="h2" variant="h4">
-        {maxRadius !== EARTH_CIRCUMFERENCE
-          ? "Events nearby location:"
-          : "All events"}
+        Search events by location
       </Typography>
       {userPosition && (
-        <LocationForm
-          userPosition={userPosition}
-          onSubmit={({ latitude, longitude }) =>
-            setUserPosition(point([longitude, latitude]))
-          }
-        />
-      )}
-      {userPosition && (
-        <select
-          data-cy="radius-select"
-          value={maxRadius}
-          onChange={(e) => setMaxRadius(e.target.value)}
-        >
-          {[25, 50, 100].map((radius) => (
-            <option key={radius} value={radius}>
-              {radius} km
-            </option>
-          ))}
-          <option value={EARTH_CIRCUMFERENCE}>the planet</option>
-        </select>
+        <>
+          <hr />
+          <LocationForm
+            userPosition={userPosition}
+            onSubmit={({ latitude, longitude }) =>
+              setUserPosition(point([longitude, latitude]))
+            }
+            setMaxRadius={setMaxRadius}
+            maxRadius={maxRadius}
+          />
+        </>
       )}
       {eventsWithDistance.map((event) => (
         <EventCard key={event.id} event={event} />

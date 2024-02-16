@@ -1,11 +1,13 @@
-import { Container } from "@mui/material";
+import { Container, createTheme } from "@mui/material";
 import NavBar from "./navbar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <main>
+    <main className="light-palette main-layout">
       <NavBar />
-      <Container>{children}</Container>
+      <Container maxWidth="sm" sx={{ mt: 4 }}>
+        {children}
+      </Container>
     </main>
   );
 }
