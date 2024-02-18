@@ -3,7 +3,7 @@ import { defineConfig } from "cypress";
 
 import { prisma } from "./src/db";
 
-import session from "./cypress/fixtures/session.json";
+import session from "./cypress/fixtures/default-user-session.json";
 import events25To50Km from "./cypress/fixtures/events-25-to-50km.json";
 
 const resetEvents = async () => {

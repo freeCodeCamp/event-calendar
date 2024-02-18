@@ -1,0 +1,9 @@
+{
+  "user": {
+    "name": "Hypothetical User",
+    "email": "hypo.thetical@freecodecamp.org",
+    "image": "https://example.com/image.jpg"
+  },
+  "expires": "5000-01-01T00:00:00.000Z",
+  "__sessionToken": "hypo.thetical@freecodecamp.org"
+}

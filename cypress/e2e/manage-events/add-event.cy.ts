@@ -1,9 +1,9 @@
 describe("Add Event", () => {
   before(() => {
-    cy.task("resetEvents");
+    cy.resetEvents();
   });
   it("should allow users to post events", () => {
-    cy.login();
+    cy.login("test@email.address");
 
     cy.visit("/add-event");
 
