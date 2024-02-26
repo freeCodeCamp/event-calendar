@@ -26,7 +26,7 @@
     "@turf/distance": "6.5.0",
     "@turf/helpers": "6.5.0",
     "@types/node": "18.19.18",
-    "@types/react": "18.2.58",
+    "@types/react": "18.2.59",
     "@types/react-dom": "18.2.19",
     "date-fns": "2.30.0",
     "dotenv": "16.4.5",
