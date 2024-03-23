@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+    tech-event-calendar:
+        build:
+            context: ../..
+            dockerfile: docker/app/Dockerfile
+        ports:
+        - "3000:3000"
+        depends_on:
+        - tech-event-calendar-db
+    tech-event-calendar-db:
+        image: postgres
+        ports:
+        - "5432:5432"
+        env_file:
+        - ../../.env

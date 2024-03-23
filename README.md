@@ -2,19 +2,27 @@
 
 ## Contributing
 
-### Prerequisites
+### Running with docker compose
+Go to project's root and execute:
+```
+docker-compose -f docker/app/docker-compose.yaml -p tech-event-calendar up -d --build
+```
+
+### Running without docker compose
+
+#### Prerequisites
 
 - [pnpm](https://pnpm.io/installation)
 - PostgreSQL (see below)
 
-### Initial setup
+#### Initial setup
 
 ```sh
 cp sample.env .env
 pnpm install
 ```
 
-### Create and migrate the database
+#### Create and migrate the database
 
 If using Docker:
 
@@ -30,7 +38,7 @@ To migrate the database:
 pnpm prisma migrate deploy
 ```
 
-### Start the server
+#### Start the server
 
 ```sh
 pnpm run dev
