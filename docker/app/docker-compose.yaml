@@ -3,7 +3,7 @@ services:
     tech-event-calendar:
         build:
             context: ../..
-            dockerfile: docker/app/Dockerfile
+            dockerfile: docker/app/Dockerfile.dev
         ports:
         - "3000:3000"
         depends_on:
