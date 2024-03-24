@@ -7,6 +7,10 @@ Go to project's root and execute:
 ```
 docker-compose -f docker/app/docker-compose.yaml -p tech-event-calendar up -d --build
 ```
+After the database has loaded, run:
+```
+pnpm prisma migrate deploy
+```
 
 ### Running without docker compose
 

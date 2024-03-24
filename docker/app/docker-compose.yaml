@@ -7,7 +7,7 @@ services:
         ports:
         - "3000:3000"
         environment:
-            DATABASE_URL: postgresql://postgres:postgres@tech-event-calendar-tech-event-calendar-db-1:5432/tech-event-calendar
+            DATABASE_URL: postgresql://postgres:postgres@tech-event-calendar-db:5432/tech-event-calendar
         depends_on:
         - tech-event-calendar-db
     tech-event-calendar-db:
