@@ -28,6 +28,7 @@ export const eventSchema = Type.Composite([
     name: Type.String({ minLength: 1, maxLength: 100 }),
     link: Type.String({ format: "uri" }),
     date: Type.String({ format: "date-time" }),
+    organizedBy: Type.String({ minLength: 1, maxLength: 100}),
   }),
   locationSchema,
 ]);

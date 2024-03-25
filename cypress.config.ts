@@ -18,6 +18,7 @@ const resetEvents = async () => {
   const data = events25To50Km.map((event) => ({
     ...event,
     creatorId: user.id,
+    organizedBy: session.user.name,
   }));
   return await prisma.event.createMany({
     data,

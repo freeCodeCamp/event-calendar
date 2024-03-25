@@ -49,6 +49,14 @@ export default function AddEvent() {
           />
 
           <FormField
+            type="text"
+            label="Organized By"
+            errors={errors}
+            helperText="Organizer names must be between 1 and 100 characters long"
+            {...register("organizedBy", { required: true })}
+          />
+
+          <FormField
             type="url"
             label="URL"
             errors={errors}
