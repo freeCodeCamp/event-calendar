@@ -145,14 +145,18 @@ function EventCard({ e }: { e: EventWithDistance }) {
 }
 
 const isUserInterested = async(eventId : string) : Promise<boolean> => {
-  const response = await fetch(
-    `/api/attendance/user?eventId=${eventId}`,
-    {
-      method: "GET",
-    }
-  );
-  const data = await response.json();
-  return Boolean((data as { isInterested: string; }).isInterested);
+  try {
+    const response = await fetch(
+      `/api/attendance/user?eventId=${eventId}`,
+      {
+        method: "GET",
+      }
+    );
+    const data = await response.json();
+    return (data as { isInterested: boolean; }).isInterested;
+  } catch {
+    return false;
+  }
 };
 
 const handleInterestedClick = async (event : EventWithDistance) => {

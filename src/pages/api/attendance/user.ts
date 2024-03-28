@@ -13,6 +13,9 @@ const handleRequest = async (req: NextApiRequest, res: NextApiResponse) => {
 const isUserInterested = async (req: NextApiRequest, res: NextApiResponse) => {
     const eventId = req.query.eventId as string | undefined;
     const session = await getServerSession(req, res, authOptions);
+    if (!session) {
+      return res.status(200).json({ isInterested: false });
+    }
     const email = session!.user!.email!;
     const uid = await userId(email);
     const found = await prisma.userEvent.findFirst({
