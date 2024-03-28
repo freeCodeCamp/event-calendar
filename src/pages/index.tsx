@@ -21,7 +21,7 @@ const EARTH_CIRCUMFERENCE = "40075.017";
 
 const inter = Inter({ subsets: ["latin"] });
 
-type EventInfo = { date: string } & Omit<
+type EventInfo = { date: string } & { participants: number } & {isUserInterested: boolean | null} & Omit<
   Event,
   "createdAt" | "updatedAt" | "creatorId" | "date"
 >;
@@ -45,9 +45,13 @@ export const getStaticProps: GetStaticProps<EventProps> = async () => {
         longitude: true,
       },
     });
-    serializeableEvents = events.map((event) => ({
-      ...event,
-      date: event.date.toISOString(),
+    serializeableEvents = await Promise.all(events.map(async (event) => {      
+      return {
+        ...event,
+        date: event.date.toISOString(),
+        participants: await participants(event.id),
+        isUserInterested: null,
+      };
     }));
   } catch (e) {
     console.log();
@@ -65,6 +69,17 @@ export const getStaticProps: GetStaticProps<EventProps> = async () => {
     revalidate: 10,
   };
 };
+
+const participants = async(eventId : string) => {
+  const response = await fetch(
+    `${process.env.URL}/api/attendance/attend?eventId=${eventId}`,
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+  return (data as { count: number }).count;
+}
 
 function getDistance(userPosition: Feature<Point> | null, event: EventInfo) {
   const eventPosition = point([event.longitude, event.latitude]);
@@ -85,12 +100,36 @@ function eventInRadius(
   return distanceToEvent ? distanceToEvent <= radius : true;
 }
 
-function EventCard({ event }: { event: EventWithDistance }) {
+function EventCard({ e }: { e: EventWithDistance }) {
+  const [event, setEvent] = useState<EventWithDistance>(e);
+  const [interestButton, setInterestButton] = useState<JSX.Element | null>(null);
+  useEffect(() => {
+    async function effect() {
+      if (event.isUserInterested == null) {
+        setEvent({...event, isUserInterested: await isUserInterested(event.id)});
+      }
+      if (event.isUserInterested === true) {
+        setInterestButton(<button onClick={() => {
+        handleNotInterestedClick(event);
+        setEvent({...event, participants: event.participants - 1, isUserInterested: false});
+      }}>{ "Not interested anymore"}</button>);
+      }
+      else {
+        setInterestButton(<button onClick={() => {
+          handleInterestedClick(event);
+          setEvent({...event, participants: event.participants + 1, isUserInterested: true});
+      }}>{ "Interested"}</button>);
+      }
+    }
+    effect();
+  }, [event]);
   return (
     <div data-cy="event-card">
       <h2>
         Title: <a href={event.link}>{event.name}</a>
       </h2>
+      <h3>Interested: {event.participants}</h3>
+      {interestButton}
 
       {/* TODO: replace with a spinner (or similar) to gracefully handle
         the delay between receiving the HTML and the browser rendering 
@@ -102,6 +141,39 @@ function EventCard({ event }: { event: EventWithDistance }) {
         <p>Distance to event: {event.distance.toFixed(2)} km</p>
       )}
     </div>
+  );
+}
+
+const isUserInterested = async(eventId : string) : Promise<boolean> => {
+  const response = await fetch(
+    `/api/attendance/user?eventId=${eventId}`,
+    {
+      method: "GET",
+    }
+  );
+  const data = await response.json();
+  return Boolean((data as { isInterested: string; }).isInterested);
+};
+
+const handleInterestedClick = async (event : EventWithDistance) => {
+  await fetch(
+    `/api/attendance/attend`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(event.id),
+    }
+  );
+}
+
+const handleNotInterestedClick = async (event : EventWithDistance) => {
+  await fetch(
+    `/api/attendance/attend`,
+    {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(event.id),
+    }
   );
 }
 
@@ -242,7 +314,7 @@ export default function Home({ events }: EventProps) {
         </select>
       )}
       {eventsWithDistance.map((event) => (
-        <EventCard key={event.id} event={event} />
+        <EventCard key={event.id} e={event} />
       ))}
     </>
   );
