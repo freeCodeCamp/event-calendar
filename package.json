@@ -18,7 +18,7 @@
     "@emotion/react": "11.11.4",
     "@emotion/styled": "11.11.5",
     "@fontsource/roboto": "4.5.8",
-    "@hookform/resolvers": "3.4.2",
+    "@hookform/resolvers": "3.5.0",
     "@mui/material": "5.15.19",
     "@next-auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "4.16.2",
