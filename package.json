@@ -31,7 +31,7 @@
     "date-fns": "2.30.0",
     "dotenv": "16.4.5",
     "eslint": "8.57.0",
-    "eslint-config-next": "14.2.3",
+    "eslint-config-next": "14.2.4",
     "next": "13.4.19",
     "next-auth": "4.24.7",
     "react": "18.3.1",
