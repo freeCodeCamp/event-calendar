@@ -1,9 +1,10 @@
 import { prisma } from "../src/db";
 
-import session from "../cypress/fixtures/session.json";
+import defaultUserSession from "../cypress/fixtures/default-user-session.json";
+import fccUserSession from "../cypress/fixtures/fcc-user-session.json";
 import events25To50Km from "../cypress/fixtures/events-25-to-50km.json";
 
-const createTestUser = async () => {
+const createTestUser = async (session: typeof defaultUserSession) => {
   const user = await prisma.user.upsert({
     where: {
       email: session.user.email,
@@ -29,10 +30,10 @@ const createTestUser = async () => {
   });
 };
 
-const createEvents = async () => {
+const createEvents = async (email: string) => {
   const user = await prisma.user.findUniqueOrThrow({
     where: {
-      email: session.user.email,
+      email,
     },
   });
 
@@ -46,9 +47,9 @@ const createEvents = async () => {
 };
 
 export const setupDb = async () => {
-  await createTestUser();
-  await createEvents();
+  await createTestUser(defaultUserSession);
+  await createTestUser(fccUserSession);
+  await createEvents(defaultUserSession.user.email);
 };
 
 setupDb();
-

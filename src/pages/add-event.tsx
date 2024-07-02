@@ -17,7 +17,7 @@ export default function AddEvent() {
   });
 
   const postEvent = async (event: EventData) => {
-    const res = await fetch("/api/event", {
+    const res = await fetch("/api/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(event),
