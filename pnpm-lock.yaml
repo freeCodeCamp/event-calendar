@@ -18,8 +18,8 @@ importers:
         specifier: 4.5.8
         version: 4.5.8
       '@hookform/resolvers':
-        specifier: 3.7.0
-        version: 3.7.0(react-hook-form@7.52.1(react@18.3.1))
+        specifier: 3.8.0
+        version: 3.8.0(react-hook-form@7.52.1(react@18.3.1))
       '@mui/material':
         specifier: 5.16.0
         version: 5.16.0(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react@18.3.1))(@types/react@18.3.3)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -243,8 +243,8 @@ packages:
   '@fontsource/roboto@4.5.8':
     resolution: {integrity: sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==}
 
-  '@hookform/resolvers@3.7.0':
-    resolution: {integrity: sha512-42p5X18noBV3xqOpTlf2V5qJZwzNgO4eLzHzmKGh/w7z4+4XqRw5AsESVkqE+qwAuRRlg2QG12EVEjPkrRIbeg==}
+  '@hookform/resolvers@3.8.0':
+    resolution: {integrity: sha512-8BY7nM+QhMlGgYOb5Mxa6ZuHRYRvAZJ5LQ7+SxMv1CFGrqvNZajoa1ipEvdnIPllEcQ9R90oBNiRUUi8rj6KPQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
 
@@ -2507,7 +2507,7 @@ snapshots:
 
   '@fontsource/roboto@4.5.8': {}
 
-  '@hookform/resolvers@3.7.0(react-hook-form@7.52.1(react@18.3.1))':
+  '@hookform/resolvers@3.8.0(react-hook-form@7.52.1(react@18.3.1))':
     dependencies:
       react-hook-form: 7.52.1(react@18.3.1)
 
