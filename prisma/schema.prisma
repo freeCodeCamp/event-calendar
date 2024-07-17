@@ -54,14 +54,15 @@ model User {
 }
 
 model Event {
-  id        String   @id @default(cuid())
-  name      String
-  date      DateTime
-  link      String
-  latitude  Float
-  longitude Float
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  creator   User     @relation(fields: [creatorId], references: [id])
-  creatorId String
+  id          String   @id @default(cuid())
+  name        String
+  date        DateTime
+  link        String
+  latitude    Float
+  longitude   Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  creator     User     @relation(fields: [creatorId], references: [id])
+  organizedBy String
+  creatorId   String
 }

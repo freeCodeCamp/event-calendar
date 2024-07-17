@@ -1,18 +1,15 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
 import { GetStaticProps } from "next";
-import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import distance from "@turf/distance";
 import { point, type Point, type Feature } from "@turf/helpers";
-import { Button, Stack, Typography } from "@mui/material";
-import { typeboxResolver } from "@hookform/resolvers/typebox";
-import { Event } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { Typography } from "@mui/material";
 
 import { prisma } from "@/db";
-import { type Location, locationSchema } from "@/validation/schema";
-import FormField from "@/components/form-field";
+import { EventCard } from "@/components/event-card";
+import { LocationForm } from "@/components/location-form";
+import type { EventInfo } from "@/types";
 
 // Given that people can (currently) be assumed to be meeting on the surface of
 // the Earth, we can use its circumference to calculate a safe upper bound for
@@ -20,13 +17,6 @@ import FormField from "@/components/form-field";
 const EARTH_CIRCUMFERENCE = "40075.017";
 
 const inter = Inter({ subsets: ["latin"] });
-
-type EventInfo = { date: string } & Omit<
-  Event,
-  "createdAt" | "updatedAt" | "creatorId" | "date"
->;
-
-type EventWithDistance = EventInfo & { distance: number | null };
 
 type EventProps = {
   events: EventInfo[];
@@ -43,6 +33,7 @@ export const getStaticProps: GetStaticProps<EventProps> = async () => {
         link: true,
         latitude: true,
         longitude: true,
+        organizedBy: true,
       },
     });
     serializeableEvents = events.map((event) => ({
@@ -83,71 +74,6 @@ function eventInRadius(
 ) {
   const distanceToEvent = getDistance(userPosition, event);
   return distanceToEvent ? distanceToEvent <= radius : true;
-}
-
-function EventCard({ event }: { event: EventWithDistance }) {
-  return (
-    <div data-cy="event-card">
-      <h2>
-        Title: <a href={event.link}>{event.name}</a>
-      </h2>
-
-      {/* TODO: replace with a spinner (or similar) to gracefully handle
-        the delay between receiving the HTML and the browser rendering 
-        the date */}
-      <p suppressHydrationWarning>
-        Date: {format(new Date(event.date), "E LLLL d, yyyy @ HH:mm")}
-      </p>
-      {event.distance !== null && (
-        <p>Distance to event: {event.distance.toFixed(2)} km</p>
-      )}
-    </div>
-  );
-}
-
-function LocationForm({
-  userPosition,
-  onSubmit,
-}: {
-  userPosition: Feature<Point>;
-  onSubmit: (data: Location) => void;
-}) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Location>({
-    defaultValues: {
-      latitude: userPosition?.geometry.coordinates[1],
-      longitude: userPosition?.geometry.coordinates[0],
-    },
-    resolver: typeboxResolver(locationSchema),
-  });
-
-  // TODO: DRY this and add-event out, they're almost identical.
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Stack spacing={2}>
-        <FormField
-          label="Latitude: "
-          type="text"
-          helperText="Latitude must be between -90 and 90 inclusive"
-          errors={errors}
-          {...register("latitude", { required: true, valueAsNumber: true })}
-        />
-        <FormField
-          label="Longitude: "
-          type="text"
-          helperText="Longitude must be between -180 and 180 inclusive"
-          errors={errors}
-          {...register("longitude", { required: true, valueAsNumber: true })}
-        />
-        <Button data-cy="submit-location" type="submit">
-          Submit
-        </Button>
-      </Stack>
-    </form>
-  );
 }
 
 export default function Home({ events }: EventProps) {

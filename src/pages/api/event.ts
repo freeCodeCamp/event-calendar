@@ -55,13 +55,14 @@ const createEvent = async (req: NextApiRequest, res: NextApiResponse) => {
             email: user.email,
           },
         },
+        organizedBy: req.body.organizedBy,
       },
     });
   } catch (error) {
     return res.status(500).json({ message: "Could not create event" });
   }
 
-  await res.revalidate("/")
+  await res.revalidate("/");
   res.status(200).json({ message: "Event created" });
 };
 
