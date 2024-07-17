@@ -1,12 +1,20 @@
+import { latitude, longitude } from "../fixtures/default-location.json";
+
 describe("Homepage", () => {
   before(() => {
-    cy.task("resetEvents");
+    cy.resetEvents();
   });
   context("when the user is logged in", () => {
     it("should display the user's email", () => {
-      cy.login();
+      cy.login("test@email.address");
       cy.visit("/");
       cy.contains("test@email.address");
+    });
+
+    it("should display the other test users's email", () => {
+      cy.login("hypo.thetical@freecodecamp.org");
+      cy.visit("/");
+      cy.contains("hypo.thetical@freecodecamp.org");
     });
   });
 
@@ -17,18 +25,12 @@ describe("Homepage", () => {
     });
 
     it("should allow users to submit a new location", () => {
-      // Initialize the location to a known value
-      const latitude = 10;
-      const longitude = 20;
-      cy.visit("/", {
-        onBeforeLoad: ({ navigator }) => {
-          cy.stub(navigator.geolocation, "getCurrentPosition").callsArgWith(0, {
-            coords: { latitude, longitude },
-          });
-        },
-      });
+      cy.visitAtCoords("/", { latitude, longitude });
       cy.get("[data-cy='input-latitude'] input").should("have.value", latitude);
-      cy.get("[data-cy='input-longitude'] input").should("have.value", longitude);
+      cy.get("[data-cy='input-longitude'] input").should(
+        "have.value",
+        longitude
+      );
       cy.get("[data-cy='submit-location']").click();
 
       // Now that the location is set, we can what's nearby (nothing is within

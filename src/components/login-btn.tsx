@@ -7,7 +7,11 @@ export default function LoginButton() {
     return (
       <>
         Signed in as {session.user?.email} <br />
-        <Button sx={{ color: "white" }} onClick={() => signOut()}>
+        <Button
+          data-cy="sign-out-btn"
+          sx={{ color: "white" }}
+          onClick={() => signOut()}
+        >
           Sign out
         </Button>
       </>
