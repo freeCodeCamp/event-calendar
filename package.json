@@ -22,7 +22,7 @@
     "@mui/material": "5.16.7",
     "@next-auth/prisma-adapter": "^1.0.6",
     "@prisma/client": "4.16.2",
-    "@sinclair/typebox": "0.32.13",
+    "@sinclair/typebox": "0.33.15",
     "@turf/distance": "6.5.0",
     "@turf/helpers": "6.5.0",
     "@types/node": "18.19.55",

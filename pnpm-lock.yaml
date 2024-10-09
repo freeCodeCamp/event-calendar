@@ -30,8 +30,8 @@ importers:
         specifier: 4.16.2
         version: 4.16.2(prisma@4.16.2)
       '@sinclair/typebox':
-        specifier: 0.32.13
-        version: 0.32.13
+        specifier: 0.33.15
+        version: 0.33.15
       '@turf/distance':
         specifier: 6.5.0
         version: 6.5.0
@@ -450,8 +450,8 @@ packages:
   '@rushstack/eslint-patch@1.5.1':
     resolution: {integrity: sha512-6i/8UoL0P5y4leBIGzvkZdS85RDMG9y1ihZzmTZQ5LdHUYmZ7pKFoj8X0236s3lusPs1Fa5HTQUpwI+UfTcmeA==}
 
-  '@sinclair/typebox@0.32.13':
-    resolution: {integrity: sha512-6gfhrgov2RWxPIlGyFcCVn1DejhmQvObIiBIx/Qx3FRnxlLS/RuoyDxK1hhhVU+S5+1Xmul32QALLErVfinyxw==}
+  '@sinclair/typebox@0.33.15':
+    resolution: {integrity: sha512-R50kz7xohLjhwgmAiw+6qOAYkeFXsK8i1CbEQB1qJTiHMK5WywpvGIHJenE3n4t7dqj3bas+H1cD5dTZIfrAEw==}
 
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
@@ -2716,7 +2716,7 @@ snapshots:
 
   '@rushstack/eslint-patch@1.5.1': {}
 
-  '@sinclair/typebox@0.32.13': {}
+  '@sinclair/typebox@0.33.15': {}
 
   '@swc/counter@0.1.3': {}
 
