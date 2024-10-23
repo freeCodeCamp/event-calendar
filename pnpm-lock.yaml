@@ -39,8 +39,8 @@ importers:
         specifier: 6.5.0
         version: 6.5.0
       '@types/node':
-        specifier: 18.19.58
-        version: 18.19.58
+        specifier: 18.19.59
+        version: 18.19.59
       '@types/react':
         specifier: 18.3.4
         version: 18.3.4
@@ -95,7 +95,7 @@ importers:
         version: 4.16.2
       ts-node:
         specifier: 10.9.2
-        version: 10.9.2(@types/node@18.19.58)(typescript@5.6.3)
+        version: 10.9.2(@types/node@18.19.59)(typescript@5.6.3)
 
 packages:
 
@@ -492,8 +492,8 @@ packages:
   '@types/node@16.18.39':
     resolution: {integrity: sha512-8q9ZexmdYYyc5/cfujaXb4YOucpQxAV4RMG0himLyDUOEr8Mr79VrqsFI+cQ2M2h89YIuy95lbxuYjxT4Hk4kQ==}
 
-  '@types/node@18.19.58':
-    resolution: {integrity: sha512-2ryJttbOAWCYuZMdk4rmZZ6oqE+GSL5LxbaTVe4PCs0FUrHObZZAQL4ihMw9/cH1Pn8lSQ9TXVhsM4LrnfZ0aA==}
+  '@types/node@18.19.59':
+    resolution: {integrity: sha512-vizm2EqwV/7Zay+A6J3tGl9Lhr7CjZe2HmWS988sefiEmsyP9CeXEleho6i4hJk/8UtZAo0bWN4QPZZr83RxvQ==}
 
   '@types/parse-json@4.0.0':
     resolution: {integrity: sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA==}
@@ -2752,7 +2752,7 @@ snapshots:
 
   '@types/node@16.18.39': {}
 
-  '@types/node@18.19.58':
+  '@types/node@18.19.59':
     dependencies:
       undici-types: 5.26.5
 
@@ -2783,7 +2783,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 18.19.58
+      '@types/node': 18.19.59
     optional: true
 
   '@typescript-eslint/eslint-plugin@7.2.0(@typescript-eslint/parser@5.59.0(eslint@8.57.1)(typescript@5.6.3))(eslint@8.57.1)(typescript@5.6.3)':
@@ -4698,14 +4698,14 @@ snapshots:
     dependencies:
       typescript: 5.6.3
 
-  ts-node@10.9.2(@types/node@18.19.58)(typescript@5.6.3):
+  ts-node@10.9.2(@types/node@18.19.59)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.9
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.19.58
+      '@types/node': 18.19.59
       acorn: 8.9.0
       acorn-walk: 8.2.0
       arg: 4.1.3
